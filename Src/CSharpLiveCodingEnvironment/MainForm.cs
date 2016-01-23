@@ -74,7 +74,7 @@ namespace CSharpLiveCodingEnvironment
 
         private void DynamicGameOnPausedChanged(object sender, EventArgs eventArgs)
         {
-            SetResumedMode();
+            Invoke((MethodInvoker)SetResumedMode);
         }
 
         private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
