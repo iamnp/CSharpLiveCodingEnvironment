@@ -47,6 +47,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
         public event FieldsChangedHandler FieldsChanged;
         public event EventHandler CurrentTrackBarValueChanged;
+        public event EventHandler PausedChanged;
 
         public void ReplaceCompiledData(CompiledData cd)
         {
@@ -143,6 +144,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     localCurrentTrackBarValue = _dynamicGameSimulator.Snapshots.Count;
 
                 var localNeedToSimulateTimelapseScene = NeedToSimulateTimelapseScene;
+                NeedToSimulateTimelapseScene = false;
                 if (Paused && _dynamicGameSimulator.Snapshots.Count != SettingsForm.Instance.StoreLastFrames)
                 {
                     if (_dynamicGameSimulator.Snapshots.Count > SettingsForm.Instance.StoreLastFrames)
@@ -192,6 +194,10 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                         {
                             CompiledData = copyOfCompiledDataToBeReplaced;
                             CompiledData.TryInvokeInitDelegate();
+                            Paused = false;
+                            localNeedToSimulateTimelapseScene = false;
+                            _dynamicGameSimulator.RemoveSnapshotsFromEnd(_dynamicGameSimulator.Snapshots.Count);
+                            PausedChanged?.Invoke(this, EventArgs.Empty);
                         }
                     }
                     _compiledDataToBeReplaced = null;
@@ -224,7 +230,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     if (_currentPausedFrame != -1 && _currentPausedFrame < _dynamicGameSimulator.Snapshots.Count - 1)
                     {
                         _currentPausedFrame += 1;
-                        CurrentTrackBarValue = _currentPausedFrame+1;
+                        CurrentTrackBarValue = _currentPausedFrame + 1;
                         localCurrentTrackBarValue = CurrentTrackBarValue;
                         CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
                     }
@@ -244,7 +250,6 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 //draw
                 GraphicsControl.Dispatcher.BeginInvoke(DispatcherPriority.Render,
                     (MethodInvoker) GraphicsControl.InvalidateVisual);
-                if (localNeedToSimulateTimelapseScene) NeedToSimulateTimelapseScene = false;
 
                 //wait if needed
                 if (SettingsForm.Instance.WaitAfterEachTick)

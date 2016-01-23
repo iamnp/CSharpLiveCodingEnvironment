@@ -1051,7 +1051,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         {
             for (var i = 0; i < ranges.Count; ++i)
             {
-                if (!(r.Start > ranges[i].Start + ranges[i].Length || r.Start + r.Length < ranges[i].Start)) return true;
+                if (!(r.Start > ranges[i].Start + ranges[i].Length || r.Start + r.Length < ranges[i].Start))
+                    return true;
             }
             return false;
         }

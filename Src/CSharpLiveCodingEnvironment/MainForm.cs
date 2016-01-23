@@ -46,14 +46,10 @@ namespace CSharpLiveCodingEnvironment
             };
             _dynamicGame.CurrentTrackBarValueChanged += DynamicGameOnCurrentTrackBarValueChanged;
             _dynamicGame.FieldsChanged += DynamicGameOnFieldsChanged;
+            _dynamicGame.PausedChanged += DynamicGameOnPausedChanged;
             _graphics.MouseDown += (sender, args) => _graphics.Focus();
 
             UpdateFormTitle();
-        }
-
-        private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
-        {
-            trackBar1.Invoke((MethodInvoker)(() => trackBar1.Value = _dynamicGame.CurrentTrackBarValue));
         }
 
         private string OpenedFilePath
@@ -74,6 +70,16 @@ namespace CSharpLiveCodingEnvironment
                 _currentFileSaved = value;
                 UpdateFormTitle();
             }
+        }
+
+        private void DynamicGameOnPausedChanged(object sender, EventArgs eventArgs)
+        {
+            SetResumedMode();
+        }
+
+        private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
+        {
+            trackBar1.Invoke((MethodInvoker) (() => trackBar1.Value = _dynamicGame.CurrentTrackBarValue));
         }
 
         private void SettingsFormOnStoreLastFramesParamChanged(object sender, EventArgs e)
@@ -137,15 +143,25 @@ namespace CSharpLiveCodingEnvironment
             _dynamicGame.Paused = !_dynamicGame.Paused;
             if (!_dynamicGame.Paused)
             {
-                pauseToolStripMenuItem.Text = "Пауза";
-                trackBar1.Visible = false;
+                SetResumedMode();
             }
             else
             {
-                _dynamicGame.NeedToSimulateTimelapseScene = true;
-                pauseToolStripMenuItem.Text = "Продолжить";
-                trackBar1.Visible = true;
+                SetPausedMode();
             }
+        }
+
+        private void SetPausedMode()
+        {
+            _dynamicGame.NeedToSimulateTimelapseScene = true;
+            pauseToolStripMenuItem.Text = "Продолжить";
+            trackBar1.Visible = true;
+        }
+
+        private void SetResumedMode()
+        {
+            pauseToolStripMenuItem.Text = "Пауза";
+            trackBar1.Visible = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
