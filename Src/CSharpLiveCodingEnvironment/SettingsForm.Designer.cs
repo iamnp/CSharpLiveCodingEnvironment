@@ -31,14 +31,17 @@
             this.useTrackedInputCheckBox = new System.Windows.Forms.CheckBox();
             this.togglePauseOnQCheckBox = new System.Windows.Forms.CheckBox();
             this.waitAfterEachTIckCheckBox = new System.Windows.Forms.CheckBox();
-            this.waitAfterEachTIckTextBox = new System.Windows.Forms.TextBox();
-            this.desiredFPSlabel = new System.Windows.Forms.Label();
+            this.desiredFrameratelabel = new System.Windows.Forms.Label();
             this.storeLastFramesLabel = new System.Windows.Forms.Label();
-            this.desiredFPStextBox = new System.Windows.Forms.TextBox();
-            this.storeLastFramesTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.storeLastFramesNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.desiredFramerateNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.waitAfterEachTickNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.storeLastFramesNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.desiredFramerateNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waitAfterEachTickNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // useTrackedInputCheckBox
@@ -78,23 +81,14 @@
             this.waitAfterEachTIckCheckBox.UseVisualStyleBackColor = true;
             this.waitAfterEachTIckCheckBox.CheckedChanged += new System.EventHandler(this.waitAfterEachTIckCheckBox_CheckedChanged);
             // 
-            // waitAfterEachTIckTextBox
+            // desiredFrameratelabel
             // 
-            this.waitAfterEachTIckTextBox.Location = new System.Drawing.Point(193, 56);
-            this.waitAfterEachTIckTextBox.Name = "waitAfterEachTIckTextBox";
-            this.waitAfterEachTIckTextBox.Size = new System.Drawing.Size(50, 20);
-            this.waitAfterEachTIckTextBox.TabIndex = 3;
-            this.waitAfterEachTIckTextBox.Text = "10";
-            this.waitAfterEachTIckTextBox.TextChanged += new System.EventHandler(this.waitAfterEachTIckTextBox_TextChanged);
-            // 
-            // desiredFPSlabel
-            // 
-            this.desiredFPSlabel.AutoSize = true;
-            this.desiredFPSlabel.Location = new System.Drawing.Point(13, 82);
-            this.desiredFPSlabel.Name = "desiredFPSlabel";
-            this.desiredFPSlabel.Size = new System.Drawing.Size(91, 13);
-            this.desiredFPSlabel.TabIndex = 4;
-            this.desiredFPSlabel.Text = "Требуемый FPS:";
+            this.desiredFrameratelabel.AutoSize = true;
+            this.desiredFrameratelabel.Location = new System.Drawing.Point(13, 82);
+            this.desiredFrameratelabel.Name = "desiredFrameratelabel";
+            this.desiredFrameratelabel.Size = new System.Drawing.Size(91, 13);
+            this.desiredFrameratelabel.TabIndex = 4;
+            this.desiredFrameratelabel.Text = "Требуемый FPS:";
             // 
             // storeLastFramesLabel
             // 
@@ -104,24 +98,6 @@
             this.storeLastFramesLabel.Size = new System.Drawing.Size(158, 13);
             this.storeLastFramesLabel.TabIndex = 5;
             this.storeLastFramesLabel.Text = "Сохранять последних кадров:";
-            // 
-            // desiredFPStextBox
-            // 
-            this.desiredFPStextBox.Location = new System.Drawing.Point(193, 79);
-            this.desiredFPStextBox.Name = "desiredFPStextBox";
-            this.desiredFPStextBox.Size = new System.Drawing.Size(50, 20);
-            this.desiredFPStextBox.TabIndex = 6;
-            this.desiredFPStextBox.Text = "60";
-            this.desiredFPStextBox.TextChanged += new System.EventHandler(this.desiredFPStextBox_TextChanged);
-            // 
-            // storeLastFramesTextBox
-            // 
-            this.storeLastFramesTextBox.Location = new System.Drawing.Point(193, 105);
-            this.storeLastFramesTextBox.Name = "storeLastFramesTextBox";
-            this.storeLastFramesTextBox.Size = new System.Drawing.Size(50, 20);
-            this.storeLastFramesTextBox.TabIndex = 7;
-            this.storeLastFramesTextBox.Text = "100";
-            this.storeLastFramesTextBox.TextChanged += new System.EventHandler(this.storeLastFramesTextBox_TextChanged);
             // 
             // label1
             // 
@@ -152,19 +128,83 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // storeLastFramesNumericUpDown
+            // 
+            this.storeLastFramesNumericUpDown.Location = new System.Drawing.Point(194, 106);
+            this.storeLastFramesNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.storeLastFramesNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.storeLastFramesNumericUpDown.Name = "storeLastFramesNumericUpDown";
+            this.storeLastFramesNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.storeLastFramesNumericUpDown.TabIndex = 10;
+            this.storeLastFramesNumericUpDown.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.storeLastFramesNumericUpDown.ValueChanged += new System.EventHandler(this.storeLastFramesNumericUpDown_ValueChanged);
+            // 
+            // desiredFramerateNumericUpDown
+            // 
+            this.desiredFramerateNumericUpDown.Location = new System.Drawing.Point(194, 80);
+            this.desiredFramerateNumericUpDown.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.desiredFramerateNumericUpDown.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.desiredFramerateNumericUpDown.Name = "desiredFramerateNumericUpDown";
+            this.desiredFramerateNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.desiredFramerateNumericUpDown.TabIndex = 11;
+            this.desiredFramerateNumericUpDown.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.desiredFramerateNumericUpDown.ValueChanged += new System.EventHandler(this.desiredFramerateNumericUpDown_ValueChanged);
+            // 
+            // waitAfterEachTickNumericUpDown
+            // 
+            this.waitAfterEachTickNumericUpDown.Location = new System.Drawing.Point(194, 57);
+            this.waitAfterEachTickNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.waitAfterEachTickNumericUpDown.Name = "waitAfterEachTickNumericUpDown";
+            this.waitAfterEachTickNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.waitAfterEachTickNumericUpDown.TabIndex = 12;
+            this.waitAfterEachTickNumericUpDown.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.waitAfterEachTickNumericUpDown.ValueChanged += new System.EventHandler(this.waitAfterEachTickNumericUpDown_ValueChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(276, 157);
+            this.Controls.Add(this.waitAfterEachTickNumericUpDown);
+            this.Controls.Add(this.desiredFramerateNumericUpDown);
+            this.Controls.Add(this.storeLastFramesNumericUpDown);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.storeLastFramesTextBox);
-            this.Controls.Add(this.desiredFPStextBox);
             this.Controls.Add(this.storeLastFramesLabel);
-            this.Controls.Add(this.desiredFPSlabel);
-            this.Controls.Add(this.waitAfterEachTIckTextBox);
+            this.Controls.Add(this.desiredFrameratelabel);
             this.Controls.Add(this.waitAfterEachTIckCheckBox);
             this.Controls.Add(this.togglePauseOnQCheckBox);
             this.Controls.Add(this.useTrackedInputCheckBox);
@@ -175,6 +215,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.storeLastFramesNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.desiredFramerateNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.waitAfterEachTickNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,13 +228,13 @@
         private System.Windows.Forms.CheckBox useTrackedInputCheckBox;
         private System.Windows.Forms.CheckBox togglePauseOnQCheckBox;
         private System.Windows.Forms.CheckBox waitAfterEachTIckCheckBox;
-        private System.Windows.Forms.TextBox waitAfterEachTIckTextBox;
-        private System.Windows.Forms.Label desiredFPSlabel;
+        private System.Windows.Forms.Label desiredFrameratelabel;
         private System.Windows.Forms.Label storeLastFramesLabel;
-        private System.Windows.Forms.TextBox desiredFPStextBox;
-        private System.Windows.Forms.TextBox storeLastFramesTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.NumericUpDown storeLastFramesNumericUpDown;
+        private System.Windows.Forms.NumericUpDown desiredFramerateNumericUpDown;
+        private System.Windows.Forms.NumericUpDown waitAfterEachTickNumericUpDown;
     }
 }

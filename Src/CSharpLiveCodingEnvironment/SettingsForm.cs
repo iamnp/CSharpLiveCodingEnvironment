@@ -17,9 +17,9 @@ namespace CSharpLiveCodingEnvironment
             UseTrackedInput = useTrackedInputCheckBox.Checked;
             TogglePauseOnQ = togglePauseOnQCheckBox.Checked;
             WaitAfterEachTick = waitAfterEachTIckCheckBox.Checked;
-            WaitAfterEachTickMsec = int.Parse(waitAfterEachTIckTextBox.Text);
-            DesiredDt = 1000/int.Parse(desiredFPStextBox.Text);
-            StoreLastFrames = int.Parse(storeLastFramesTextBox.Text);
+            WaitAfterEachTickMsec = (int) waitAfterEachTickNumericUpDown.Value;
+            DesiredDt = 1000/(int) desiredFramerateNumericUpDown.Value;
+            StoreLastFrames = (int)storeLastFramesNumericUpDown.Value;
         }
 
         public static SettingsForm Instance => _instance ?? (_instance = new SettingsForm());
@@ -38,7 +38,7 @@ namespace CSharpLiveCodingEnvironment
             set
             {
                 _storeLastFramesEditingEnabled = value;
-                storeLastFramesTextBox.Enabled = value;
+                storeLastFramesNumericUpDown.Enabled = value;
             }
         }
 
@@ -59,34 +59,6 @@ namespace CSharpLiveCodingEnvironment
             WaitAfterEachTick = waitAfterEachTIckCheckBox.Checked;
         }
 
-        private void waitAfterEachTIckTextBox_TextChanged(object sender, EventArgs e)
-        {
-            int a;
-            if (int.TryParse(waitAfterEachTIckTextBox.Text, out a))
-            {
-                WaitAfterEachTickMsec = a;
-            }
-        }
-
-        private void desiredFPStextBox_TextChanged(object sender, EventArgs e)
-        {
-            int a;
-            if (int.TryParse(desiredFPStextBox.Text, out a))
-            {
-                DesiredDt = 1000/a;
-            }
-        }
-
-        private void storeLastFramesTextBox_TextChanged(object sender, EventArgs e)
-        {
-            int a;
-            if (int.TryParse(storeLastFramesTextBox.Text, out a))
-            {
-                StoreLastFrames = a;
-                StoreLastFramesParamChanged?.Invoke(this, EventArgs.Empty);
-            }
-        }
-
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
@@ -96,6 +68,22 @@ namespace CSharpLiveCodingEnvironment
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             CheckInfiniteLoops = checkBox2.Checked;
+        }
+
+        private void storeLastFramesNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            StoreLastFrames = (int)storeLastFramesNumericUpDown.Value;
+            StoreLastFramesParamChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void desiredFramerateNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            DesiredDt = 1000 / (int)desiredFramerateNumericUpDown.Value;
+        }
+
+        private void waitAfterEachTickNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            WaitAfterEachTickMsec = (int)waitAfterEachTickNumericUpDown.Value;
         }
     }
 }
