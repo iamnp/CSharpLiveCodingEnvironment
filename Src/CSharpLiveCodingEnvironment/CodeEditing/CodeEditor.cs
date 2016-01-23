@@ -45,7 +45,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             },
             new HighlightingRule
             {
-                Pattern = new Regex(@"(?:[^a-zA-Z0-9._]|^)(-*[0-9\.]+)(?:[^a-zA-Z0-9._]|$)", RegexOptions.Compiled),
+                Pattern = new Regex(@"(?:[^a-zA-Z0-9_]|^)(-*[0-9\.]+)(?=(?:[^a-zA-Z0-9_]|$))", RegexOptions.Compiled),
                 Color = Color.FromArgb(255, 0, 0, 255)
             }
         };
