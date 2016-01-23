@@ -53,7 +53,7 @@ namespace CSharpLiveCodingEnvironment
 
         private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
         {
-            trackBar1.Value = _dynamicGame.CurrentTrackBarValue;
+            trackBar1.Invoke((MethodInvoker)(() => trackBar1.Value = _dynamicGame.CurrentTrackBarValue));
         }
 
         private string OpenedFilePath
