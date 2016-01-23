@@ -44,10 +44,16 @@ namespace CSharpLiveCodingEnvironment
             {
                 CurrentTrackBarValue = trackBar1.Value
             };
+            _dynamicGame.CurrentTrackBarValueChanged += DynamicGameOnCurrentTrackBarValueChanged;
             _dynamicGame.FieldsChanged += DynamicGameOnFieldsChanged;
             _graphics.MouseDown += (sender, args) => _graphics.Focus();
 
             UpdateFormTitle();
+        }
+
+        private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
+        {
+            trackBar1.Value = _dynamicGame.CurrentTrackBarValue;
         }
 
         private string OpenedFilePath

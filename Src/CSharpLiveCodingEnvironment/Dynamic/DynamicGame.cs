@@ -46,6 +46,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         public CompiledData CompiledData { get; private set; }
 
         public event FieldsChangedHandler FieldsChanged;
+        public event EventHandler CurrentTrackBarValueChanged;
 
         public void ReplaceCompiledData(CompiledData cd)
         {
@@ -154,8 +155,11 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     else
                     {
                         var count = SettingsForm.Instance.StoreLastFrames - _dynamicGameSimulator.Snapshots.Count;
+                        CurrentTrackBarValue = _dynamicGameSimulator.Snapshots.Count;
+                        localCurrentTrackBarValue = CurrentTrackBarValue;
                         _dynamicGameSimulator.AddDummySnapshots(count);
                         _dynamicGameSimulator.SimulateGame(_dynamicGameSimulator.Snapshots.Count - count - 1);
+                        CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
                     }
                     GraphicsControl.Dispatcher.Invoke(_dynamicGameSimulator.RenderTimelapseScene);
                 }
