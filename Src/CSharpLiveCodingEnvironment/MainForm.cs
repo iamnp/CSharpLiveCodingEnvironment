@@ -138,7 +138,6 @@ namespace CSharpLiveCodingEnvironment
             if (!_dynamicGame.Paused)
             {
                 pauseToolStripMenuItem.Text = "Пауза";
-                trackBar1.Value = trackBar1.Maximum;
                 trackBar1.Visible = false;
             }
             else

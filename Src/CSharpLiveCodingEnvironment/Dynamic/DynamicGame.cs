@@ -224,6 +224,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     if (_currentPausedFrame != -1 && _currentPausedFrame < _dynamicGameSimulator.Snapshots.Count - 1)
                     {
                         _currentPausedFrame += 1;
+                        CurrentTrackBarValue = _currentPausedFrame+1;
+                        localCurrentTrackBarValue = CurrentTrackBarValue;
+                        CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
                     }
                     else
                     {
