@@ -1047,11 +1047,11 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             }
         }
 
-        private bool Intersects(bool[] mask, HighlightingRange r)
+        private bool Intersects(List<HighlightingRange> ranges, HighlightingRange r)
         {
-            for (var i = r.Start; i < r.Start + r.Length; ++i)
+            for (var i = 0; i < ranges.Count; ++i)
             {
-                if (mask[i]) return true;
+                if (!(r.Start > ranges[i].Start + ranges[i].Length || r.Start + r.Length < ranges[i].Start)) return true;
             }
             return false;
         }
@@ -1059,7 +1059,6 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         private List<HighlightingRange> HighlightLine(string line)
         {
             var ranges = new List<HighlightingRange>();
-            var mask = new bool[line.Length];
 
             if (_highlightingRules != null)
             {
@@ -1074,13 +1073,9 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                             Start = m.Groups[1].Index,
                             Length = m.Groups[1].Length
                         };
-                        if (!Intersects(mask, cnd))
+                        if (!Intersects(ranges, cnd))
                         {
                             ranges.Add(cnd);
-                            for (var j = cnd.Start; j < cnd.Start + cnd.Length; ++j)
-                            {
-                                mask[j] = true;
-                            }
                         }
                     }
                 }

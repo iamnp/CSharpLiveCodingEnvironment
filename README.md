@@ -9,6 +9,7 @@ TODOs
  - Rethink snippet buttons (editor menu?)
  - Refactor DynamicGame.GameTick()
  - Add comments
+ - Custom drawing methods
 
 License
 ----
