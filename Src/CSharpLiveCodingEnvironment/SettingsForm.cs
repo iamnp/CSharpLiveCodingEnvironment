@@ -7,8 +7,6 @@ namespace CSharpLiveCodingEnvironment
     {
         private static SettingsForm _instance;
 
-        private bool _storeLastFramesEditingEnabled;
-
         public SettingsForm()
         {
             InitializeComponent();
@@ -31,16 +29,6 @@ namespace CSharpLiveCodingEnvironment
         public int DesiredDt { get; private set; }
         public int StoreLastFrames { get; private set; }
         public bool CheckInfiniteLoops { get; private set; }
-
-        public bool StoreLastFramesEditingEnabled
-        {
-            get { return _storeLastFramesEditingEnabled; }
-            set
-            {
-                _storeLastFramesEditingEnabled = value;
-                storeLastFramesNumericUpDown.Enabled = value;
-            }
-        }
 
         public event EventHandler StoreLastFramesParamChanged;
 
@@ -84,6 +72,11 @@ namespace CSharpLiveCodingEnvironment
         private void waitAfterEachTickNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             WaitAfterEachTickMsec = (int)waitAfterEachTickNumericUpDown.Value;
+        }
+
+        private void topMostCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            TopMost = topMostCheckBox.Checked;
         }
     }
 }

@@ -39,6 +39,7 @@
             this.storeLastFramesNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.desiredFramerateNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.waitAfterEachTickNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.topMostCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.storeLastFramesNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.desiredFramerateNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waitAfterEachTickNumericUpDown)).BeginInit();
@@ -49,7 +50,7 @@
             this.useTrackedInputCheckBox.AutoSize = true;
             this.useTrackedInputCheckBox.Checked = true;
             this.useTrackedInputCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.useTrackedInputCheckBox.Location = new System.Drawing.Point(12, 12);
+            this.useTrackedInputCheckBox.Location = new System.Drawing.Point(12, 35);
             this.useTrackedInputCheckBox.Name = "useTrackedInputCheckBox";
             this.useTrackedInputCheckBox.Size = new System.Drawing.Size(246, 17);
             this.useTrackedInputCheckBox.TabIndex = 0;
@@ -62,7 +63,7 @@
             this.togglePauseOnQCheckBox.AutoSize = true;
             this.togglePauseOnQCheckBox.Checked = true;
             this.togglePauseOnQCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.togglePauseOnQCheckBox.Location = new System.Drawing.Point(12, 35);
+            this.togglePauseOnQCheckBox.Location = new System.Drawing.Point(12, 58);
             this.togglePauseOnQCheckBox.Name = "togglePauseOnQCheckBox";
             this.togglePauseOnQCheckBox.Size = new System.Drawing.Size(199, 17);
             this.togglePauseOnQCheckBox.TabIndex = 1;
@@ -73,7 +74,7 @@
             // waitAfterEachTIckCheckBox
             // 
             this.waitAfterEachTIckCheckBox.AutoSize = true;
-            this.waitAfterEachTIckCheckBox.Location = new System.Drawing.Point(12, 58);
+            this.waitAfterEachTIckCheckBox.Location = new System.Drawing.Point(12, 81);
             this.waitAfterEachTIckCheckBox.Name = "waitAfterEachTIckCheckBox";
             this.waitAfterEachTIckCheckBox.Size = new System.Drawing.Size(175, 17);
             this.waitAfterEachTIckCheckBox.TabIndex = 2;
@@ -84,7 +85,7 @@
             // desiredFrameratelabel
             // 
             this.desiredFrameratelabel.AutoSize = true;
-            this.desiredFrameratelabel.Location = new System.Drawing.Point(13, 82);
+            this.desiredFrameratelabel.Location = new System.Drawing.Point(13, 105);
             this.desiredFrameratelabel.Name = "desiredFrameratelabel";
             this.desiredFrameratelabel.Size = new System.Drawing.Size(91, 13);
             this.desiredFrameratelabel.TabIndex = 4;
@@ -93,7 +94,7 @@
             // storeLastFramesLabel
             // 
             this.storeLastFramesLabel.AutoSize = true;
-            this.storeLastFramesLabel.Location = new System.Drawing.Point(16, 108);
+            this.storeLastFramesLabel.Location = new System.Drawing.Point(16, 131);
             this.storeLastFramesLabel.Name = "storeLastFramesLabel";
             this.storeLastFramesLabel.Size = new System.Drawing.Size(158, 13);
             this.storeLastFramesLabel.TabIndex = 5;
@@ -102,7 +103,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(249, 59);
+            this.label1.Location = new System.Drawing.Point(249, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(21, 13);
             this.label1.TabIndex = 8;
@@ -111,7 +112,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(250, 108);
+            this.label2.Location = new System.Drawing.Point(250, 88);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 13);
             this.label2.TabIndex = 9;
@@ -120,7 +121,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 131);
+            this.checkBox2.Location = new System.Drawing.Point(12, 154);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(168, 17);
             this.checkBox2.TabIndex = 4;
@@ -130,7 +131,7 @@
             // 
             // storeLastFramesNumericUpDown
             // 
-            this.storeLastFramesNumericUpDown.Location = new System.Drawing.Point(194, 106);
+            this.storeLastFramesNumericUpDown.Location = new System.Drawing.Point(194, 129);
             this.storeLastFramesNumericUpDown.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -153,7 +154,7 @@
             // 
             // desiredFramerateNumericUpDown
             // 
-            this.desiredFramerateNumericUpDown.Location = new System.Drawing.Point(194, 80);
+            this.desiredFramerateNumericUpDown.Location = new System.Drawing.Point(194, 103);
             this.desiredFramerateNumericUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -176,7 +177,7 @@
             // 
             // waitAfterEachTickNumericUpDown
             // 
-            this.waitAfterEachTickNumericUpDown.Location = new System.Drawing.Point(194, 57);
+            this.waitAfterEachTickNumericUpDown.Location = new System.Drawing.Point(194, 80);
             this.waitAfterEachTickNumericUpDown.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -192,11 +193,23 @@
             0});
             this.waitAfterEachTickNumericUpDown.ValueChanged += new System.EventHandler(this.waitAfterEachTickNumericUpDown_ValueChanged);
             // 
+            // topMostCheckBox
+            // 
+            this.topMostCheckBox.AutoSize = true;
+            this.topMostCheckBox.Location = new System.Drawing.Point(12, 12);
+            this.topMostCheckBox.Name = "topMostCheckBox";
+            this.topMostCheckBox.Size = new System.Drawing.Size(116, 17);
+            this.topMostCheckBox.TabIndex = 13;
+            this.topMostCheckBox.Text = "Поверх всех окон";
+            this.topMostCheckBox.UseVisualStyleBackColor = true;
+            this.topMostCheckBox.CheckedChanged += new System.EventHandler(this.topMostCheckBox_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 157);
+            this.ClientSize = new System.Drawing.Size(276, 174);
+            this.Controls.Add(this.topMostCheckBox);
             this.Controls.Add(this.waitAfterEachTickNumericUpDown);
             this.Controls.Add(this.desiredFramerateNumericUpDown);
             this.Controls.Add(this.storeLastFramesNumericUpDown);
@@ -236,5 +249,6 @@
         private System.Windows.Forms.NumericUpDown storeLastFramesNumericUpDown;
         private System.Windows.Forms.NumericUpDown desiredFramerateNumericUpDown;
         private System.Windows.Forms.NumericUpDown waitAfterEachTickNumericUpDown;
+        private System.Windows.Forms.CheckBox topMostCheckBox;
     }
 }

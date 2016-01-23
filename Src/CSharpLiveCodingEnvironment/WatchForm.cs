@@ -39,5 +39,10 @@ namespace CSharpLiveCodingEnvironment
         {
             _flickerlessDataGridView.ShowData(list);
         }
+
+        private void topMostCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            TopMost = topMostCheckBox.Checked;
+        }
     }
 }

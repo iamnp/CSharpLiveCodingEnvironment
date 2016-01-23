@@ -33,13 +33,17 @@
             this._flickerlessDataGridView = new CSharpLiveCodingEnvironment.FlickerlessDataGridView();
             this.objectDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.topMostCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this._flickerlessDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // FlickerlessDataGridView
+            // _flickerlessDataGridView
             // 
             this._flickerlessDataGridView.AllowUserToAddRows = false;
             this._flickerlessDataGridView.AllowUserToDeleteRows = false;
+            this._flickerlessDataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._flickerlessDataGridView.AutoGenerateColumns = false;
             this._flickerlessDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._flickerlessDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -54,13 +58,12 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this._flickerlessDataGridView.DefaultCellStyle = dataGridViewCellStyle1;
-            this._flickerlessDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._flickerlessDataGridView.Location = new System.Drawing.Point(0, 0);
+            this._flickerlessDataGridView.Location = new System.Drawing.Point(0, 40);
             this._flickerlessDataGridView.Name = "_flickerlessDataGridView";
             this._flickerlessDataGridView.RowHeadersVisible = false;
             this._flickerlessDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this._flickerlessDataGridView.ShowCellToolTips = false;
-            this._flickerlessDataGridView.Size = new System.Drawing.Size(434, 281);
+            this._flickerlessDataGridView.Size = new System.Drawing.Size(434, 241);
             this._flickerlessDataGridView.TabIndex = 0;
             // 
             // objectDataGridViewTextBoxColumn
@@ -75,11 +78,23 @@
             this.valueDataGridViewTextBoxColumn.HeaderText = "Value";
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
             // 
+            // topMostCheckBox
+            // 
+            this.topMostCheckBox.AutoSize = true;
+            this.topMostCheckBox.Location = new System.Drawing.Point(12, 12);
+            this.topMostCheckBox.Name = "topMostCheckBox";
+            this.topMostCheckBox.Size = new System.Drawing.Size(116, 17);
+            this.topMostCheckBox.TabIndex = 1;
+            this.topMostCheckBox.Text = "Поверх всех окон";
+            this.topMostCheckBox.UseVisualStyleBackColor = true;
+            this.topMostCheckBox.CheckedChanged += new System.EventHandler(this.topMostCheckBox_CheckedChanged);
+            // 
             // WatchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 281);
+            this.Controls.Add(this.topMostCheckBox);
             this.Controls.Add(this._flickerlessDataGridView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "WatchForm";
@@ -88,6 +103,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WatchForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this._flickerlessDataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -96,5 +112,6 @@
         private FlickerlessDataGridView _flickerlessDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn objectDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn valueDataGridViewTextBoxColumn;
+        private System.Windows.Forms.CheckBox topMostCheckBox;
     }
 }

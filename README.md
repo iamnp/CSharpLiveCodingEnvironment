@@ -4,7 +4,12 @@ C# Live Coding Environment is a C# code editor that compiles and runs your code 
 
 The idea of the project is based on Bret Victor's talk 'Inventing on Principle' given at CUSEC, 2012.
 
+TODOs
+----
+ - Get rid of TmpBlocksClass class
+ - Add comments
+ - Refactor DynamicGame.GameTick()
+
 License
 ----
-
 GPL3

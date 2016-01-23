@@ -76,13 +76,21 @@ class Game
             {
                 CurrentTrackBarValue = trackBar1.Value
             };
-
+            _dynamicGame.CurrentTrackBarValueChanged += DynamicGameOnCurrentTrackBarValueChanged;
             _dynamicGame.FieldsChanged += DynamicGameOnFieldsChanged;
 
-            //TODO get rid of this class
             new TmpBlocksClass(_graphics, _dynamicGame);
 
             UpdateFormTitle();
+        }
+
+        private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
+        {
+            if (_dynamicGame.CurrentTrackBarValue >= trackBar1.Minimum &&
+                _dynamicGame.CurrentTrackBarValue <= trackBar1.Maximum)
+            {
+                trackBar1.Value = _dynamicGame.CurrentTrackBarValue;
+            }
         }
 
         private string OpenedFilePath
@@ -108,7 +116,7 @@ class Game
         private void SettingsFormOnStoreLastFramesParamChanged(object sender, EventArgs e)
         {
             trackBar1.Maximum = SettingsForm.Instance.StoreLastFrames;
-            trackBar1.Value = trackBar1.Maximum;
+            if (!_dynamicGame.Paused) trackBar1.Value = trackBar1.Maximum;
         }
 
         private void DynamicGameOnFieldsChanged(object sender, FieldsChangedEventArgs e)
@@ -168,14 +176,12 @@ class Game
             {
                 pauseToolStripMenuItem.Text = "Пауза";
                 trackBar1.Value = trackBar1.Maximum;
-                SettingsForm.Instance.StoreLastFramesEditingEnabled = true;
                 trackBar1.Visible = false;
             }
             else
             {
                 _dynamicGame.NeedToSimulateTimelapseScene = true;
                 pauseToolStripMenuItem.Text = "Продолжить";
-                SettingsForm.Instance.StoreLastFramesEditingEnabled = false;
                 trackBar1.Visible = true;
             }
         }

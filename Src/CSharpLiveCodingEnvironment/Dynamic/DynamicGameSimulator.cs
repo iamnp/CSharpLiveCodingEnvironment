@@ -23,6 +23,20 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             Snapshots.Add(new Snapshot {Input = input, State = _game.CompiledData.DumpGameState(), Dt = dt});
         }
 
+        public void AddDummySnapshots(int count)
+        {
+            int lastSnapshot = Snapshots.Count - 1;
+            for (int i = 0; i < count; ++i)
+            {
+                Snapshots.Add(new Snapshot {Dt = Snapshots[lastSnapshot].Dt, State = Snapshots[lastSnapshot].State, Input = Snapshots[lastSnapshot].Input });
+            }
+        }
+
+        public void RemoveSnapshotsFromEnd(int count)
+        {
+            Snapshots.RemoveRange(Snapshots.Count - count, count);
+        }
+
         public void RenderTimelapseScene()
         {
             var state = _game.CompiledData.DumpGameState();
