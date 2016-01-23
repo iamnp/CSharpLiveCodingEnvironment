@@ -138,7 +138,7 @@
             0,
             0});
             this.storeLastFramesNumericUpDown.Minimum = new decimal(new int[] {
-            1,
+            3,
             0,
             0,
             0});
@@ -156,7 +156,7 @@
             // 
             this.desiredFramerateNumericUpDown.Location = new System.Drawing.Point(194, 103);
             this.desiredFramerateNumericUpDown.Maximum = new decimal(new int[] {
-            1000,
+            9999,
             0,
             0,
             0});

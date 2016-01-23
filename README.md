@@ -6,9 +6,9 @@ The idea of the project is based on Bret Victor's talk 'Inventing on Principle' 
 
 TODOs
 ----
- - Get rid of TmpBlocksClass class
- - Add comments
+ - Rethink snippet buttons (editor menu?)
  - Refactor DynamicGame.GameTick()
+ - Add comments
 
 License
 ----

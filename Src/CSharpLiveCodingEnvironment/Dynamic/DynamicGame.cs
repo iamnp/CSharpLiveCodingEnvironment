@@ -38,7 +38,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
             for (int i = 'A'; i <= 'Z'; i += 1)
             {
-                _input[(char)i] = false;
+                _input[(char) i] = false;
             }
             _logLabel = logLabel;
         }
@@ -46,7 +46,6 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         public CompiledData CompiledData { get; private set; }
 
         public event FieldsChangedHandler FieldsChanged;
-        public event EventHandler CurrentTrackBarValueChanged;
 
         public void ReplaceCompiledData(CompiledData cd)
         {
@@ -147,19 +146,18 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 {
                     if (_dynamicGameSimulator.Snapshots.Count > SettingsForm.Instance.StoreLastFrames)
                     {
-                        int count = _dynamicGameSimulator.Snapshots.Count - SettingsForm.Instance.StoreLastFrames;
+                        var count = _dynamicGameSimulator.Snapshots.Count - SettingsForm.Instance.StoreLastFrames;
                         _dynamicGameSimulator.RemoveSnapshotsFromEnd(count);
                         CurrentTrackBarValue = Math.Min(CurrentTrackBarValue, _dynamicGameSimulator.Snapshots.Count);
                         localCurrentTrackBarValue = CurrentTrackBarValue;
                     }
                     else
                     {
-                        int count = SettingsForm.Instance.StoreLastFrames - _dynamicGameSimulator.Snapshots.Count;
+                        var count = SettingsForm.Instance.StoreLastFrames - _dynamicGameSimulator.Snapshots.Count;
                         _dynamicGameSimulator.AddDummySnapshots(count);
-                        _dynamicGameSimulator.SimulateGame(_dynamicGameSimulator.Snapshots.Count - count - 1);                     
+                        _dynamicGameSimulator.SimulateGame(_dynamicGameSimulator.Snapshots.Count - count - 1);
                     }
                     GraphicsControl.Dispatcher.Invoke(_dynamicGameSimulator.RenderTimelapseScene);
-                    CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
                 }
 
                 //hot replace code
@@ -203,7 +201,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
                 //move
                 dtStopwatch.Stop();
-                var dt = 1000.0 * dtStopwatch.ElapsedTicks / Stopwatch.Frequency;
+                var dt = 1000.0*dtStopwatch.ElapsedTicks/Stopwatch.Frequency;
                 var b = _currentPausedFrame != -1 && _currentPausedFrame < _dynamicGameSimulator.Snapshots.Count - 1 &&
                         !Paused;
                 MoveScene(b ? _dynamicGameSimulator.Snapshots[_currentPausedFrame + 1].Dt : dt,
@@ -238,7 +236,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
                 //draw
                 GraphicsControl.Dispatcher.BeginInvoke(DispatcherPriority.Render,
-                    (MethodInvoker)GraphicsControl.InvalidateVisual);
+                    (MethodInvoker) GraphicsControl.InvalidateVisual);
                 if (localNeedToSimulateTimelapseScene) NeedToSimulateTimelapseScene = false;
 
                 //wait if needed
@@ -252,10 +250,10 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 gameTickStopwatch.Stop();
 
                 //log
-                if (ii++ % 40 == 0)
+                if (ii++%40 == 0)
                 {
-                    _logLabel.Owner.BeginInvoke((MethodInvoker)(() => _logLabel.Text =
-                       $"GameTick = {1000.0 * gameTickStopwatch.ElapsedTicks / Stopwatch.Frequency:F3}; dt = {dt:F3}"));
+                    _logLabel.Owner.BeginInvoke((MethodInvoker) (() => _logLabel.Text =
+                        $"GameTick = {1000.0*gameTickStopwatch.ElapsedTicks/Stopwatch.Frequency:F3}; dt = {dt:F3}"));
                 }
 
                 //fire event if needed

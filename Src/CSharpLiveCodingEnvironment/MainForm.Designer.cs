@@ -49,6 +49,11 @@ namespace CSharpLiveCodingEnvironment
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.ellipseButton = new System.Windows.Forms.Button();
+            this.rectangleButton = new System.Windows.Forms.Button();
+            this.lineButton = new System.Windows.Forms.Button();
+            this.roundedRectangleButton = new System.Windows.Forms.Button();
+            this.textButton = new System.Windows.Forms.Button();
             this.codeEditor = new CSharpLiveCodingEnvironment.CodeEditing.CodeEditor();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -86,7 +91,7 @@ namespace CSharpLiveCodingEnvironment
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1158, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1159, 24);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -200,7 +205,7 @@ namespace CSharpLiveCodingEnvironment
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 583);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1158, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1159, 22);
             this.statusStrip1.TabIndex = 12;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -210,6 +215,56 @@ namespace CSharpLiveCodingEnvironment
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
+            // ellipseButton
+            // 
+            this.ellipseButton.Location = new System.Drawing.Point(512, 33);
+            this.ellipseButton.Name = "ellipseButton";
+            this.ellipseButton.Size = new System.Drawing.Size(70, 40);
+            this.ellipseButton.TabIndex = 14;
+            this.ellipseButton.Text = "Ellipse";
+            this.ellipseButton.UseVisualStyleBackColor = true;
+            this.ellipseButton.Click += new System.EventHandler(this.ellipseButton_Click);
+            // 
+            // rectangleButton
+            // 
+            this.rectangleButton.Location = new System.Drawing.Point(588, 33);
+            this.rectangleButton.Name = "rectangleButton";
+            this.rectangleButton.Size = new System.Drawing.Size(70, 40);
+            this.rectangleButton.TabIndex = 15;
+            this.rectangleButton.Text = "Rectangle";
+            this.rectangleButton.UseVisualStyleBackColor = true;
+            this.rectangleButton.Click += new System.EventHandler(this.rectangleButton_Click);
+            // 
+            // lineButton
+            // 
+            this.lineButton.Location = new System.Drawing.Point(664, 33);
+            this.lineButton.Name = "lineButton";
+            this.lineButton.Size = new System.Drawing.Size(70, 40);
+            this.lineButton.TabIndex = 16;
+            this.lineButton.Text = "Line";
+            this.lineButton.UseVisualStyleBackColor = true;
+            this.lineButton.Click += new System.EventHandler(this.lineButton_Click);
+            // 
+            // roundedRectangleButton
+            // 
+            this.roundedRectangleButton.Location = new System.Drawing.Point(740, 33);
+            this.roundedRectangleButton.Name = "roundedRectangleButton";
+            this.roundedRectangleButton.Size = new System.Drawing.Size(70, 40);
+            this.roundedRectangleButton.TabIndex = 17;
+            this.roundedRectangleButton.Text = "Rounded Rect";
+            this.roundedRectangleButton.UseVisualStyleBackColor = true;
+            this.roundedRectangleButton.Click += new System.EventHandler(this.roundedRectangleButton_Click);
+            // 
+            // textButton
+            // 
+            this.textButton.Location = new System.Drawing.Point(816, 33);
+            this.textButton.Name = "textButton";
+            this.textButton.Size = new System.Drawing.Size(70, 40);
+            this.textButton.TabIndex = 18;
+            this.textButton.Text = "Text";
+            this.textButton.UseVisualStyleBackColor = true;
+            this.textButton.Click += new System.EventHandler(this.textButton_Click);
+            // 
             // codeEditor
             // 
             this.codeEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -217,17 +272,22 @@ namespace CSharpLiveCodingEnvironment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.codeEditor.AutoScroll = true;
             this.codeEditor.AutoScrollMinSize = new System.Drawing.Size(21, 16);
-            this.codeEditor.Location = new System.Drawing.Point(512, 28);
+            this.codeEditor.Location = new System.Drawing.Point(512, 76);
             this.codeEditor.Name = "codeEditor";
             this.codeEditor.SelectedText = "";
-            this.codeEditor.Size = new System.Drawing.Size(634, 548);
+            this.codeEditor.Size = new System.Drawing.Size(635, 500);
             this.codeEditor.TabIndex = 13;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1158, 605);
+            this.ClientSize = new System.Drawing.Size(1159, 605);
+            this.Controls.Add(this.textButton);
+            this.Controls.Add(this.roundedRectangleButton);
+            this.Controls.Add(this.lineButton);
+            this.Controls.Add(this.rectangleButton);
+            this.Controls.Add(this.ellipseButton);
             this.Controls.Add(this.codeEditor);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.elementHost1);
@@ -272,6 +332,11 @@ namespace CSharpLiveCodingEnvironment
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem newFileToolStripMenuItem;
+        private System.Windows.Forms.Button ellipseButton;
+        private System.Windows.Forms.Button rectangleButton;
+        private System.Windows.Forms.Button lineButton;
+        private System.Windows.Forms.Button roundedRectangleButton;
+        private System.Windows.Forms.Button textButton;
     }
 }
 

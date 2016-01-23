@@ -27,6 +27,16 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         {
             new HighlightingRule
             {
+                Pattern = new Regex(@"(//.*)", RegexOptions.Compiled),
+                Color = Color.Green
+            },
+            new HighlightingRule
+            {
+                Pattern = new Regex(@"(""[^""\n]*"")", RegexOptions.Compiled),
+                Color = Color.Green
+            },
+            new HighlightingRule
+            {
                 Pattern =
                     new Regex(
                         @"(?:[^a-zA-Z0-9_]|^)(abstract|as|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|var|virtual|void|volatile|while)(?=(?:[^a-zA-Z0-9_]|$))",
@@ -101,6 +111,14 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             set { SetNewText(value); }
         }
 
+        public void ReplaceSelectedTextWith(string s)
+        {
+            var sel = _selection.Sorted();
+            SelectedText = s;
+            _selection.Start = sel.Start;
+            _selection.End = IndexToCharPos(CharPosToIndex(_selection.Start) + s.Length);
+        }
+
         public new event EventHandler TextChanged;
 
         protected override void OnTextChanged(EventArgs args)
@@ -113,6 +131,17 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             _text = text;
             _lines = _text.Split('\n');
             _needToSetLayoutSize = true;
+
+            if (_selection.Start.Line >= _lines.Length)
+                _selection.Start.Line = _lines.Length - 1;
+            if (_selection.Start.Column >= _lines[_selection.Start.Line].Length)
+                _selection.Start.Column = _lines[_selection.Start.Line].Length;
+
+            if (_selection.End.Line >= _lines.Length)
+                _selection.End.Line = _lines.Length - 1;
+            if (_selection.End.Column >= _lines[_selection.Start.Line].Length)
+                _selection.End.Column = _lines[_selection.Start.Line].Length;
+            PosCaret();
             ScrollToCaret();
             OnTextChanged(EventArgs.Empty);
             Invalidate();
@@ -125,9 +154,9 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             {
                 if (_lines[i].Length > max) max = _lines[i].Length;
             }
-            var h = _lines.Length * _font.Height;
+            var h = _lines.Length*_font.Height;
             var add = Width - ClientRectangle.Width;
-            AutoScrollMinSize = new Size((int)(max * _charWidth + add + DockWidth + OffsetFromDock), h);
+            AutoScrollMinSize = new Size((int) (max*_charWidth + add + DockWidth + OffsetFromDock), h);
             ScrollToCaret();
         }
 
@@ -290,8 +319,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             }
             if (e.KeyCode == Keys.A && (e.Modifiers & Keys.Control) == Keys.Control)
             {
-                _selection.Start = new Position { Line = 0, Column = 0 };
-                _selection.End = new Position { Line = _lines.Length - 1, Column = _lines[_lines.Length - 1].Length };
+                _selection.Start = new Position {Line = 0, Column = 0};
+                _selection.End = new Position {Line = _lines.Length - 1, Column = _lines[_lines.Length - 1].Length};
                 SmoothRefresh();
             }
 
@@ -367,7 +396,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         private void ManipulateSelectedNumber(int x)
         {
-            var delta = (x - _initialMouseXPos) / Math.Pow(10, _decimalPlacesAfterPoint);
+            var delta = (x - _initialMouseXPos)/Math.Pow(10, _decimalPlacesAfterPoint);
             _manipulatorValue = x - _initialMouseXPos;
             var num = _initialValue + delta;
             var numStr = string.Format($"{{0:F{_decimalPlacesAfterPoint}}}", num).Replace(",", ".");
@@ -418,8 +447,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             _selection.Start = IndexToCharPos(_manipulatingSelectionStart);
             _selection.End = IndexToCharPos(_manipulatingSelectionStop + 1);
 
-            _manipulatorOriginX = _initialMouseXPos - ManipulatorWidth / 2;
-            _manipulatorOriginY = shiftY + _selection.End.Line * _font.Height - ManipulatorHeight - 4;
+            _manipulatorOriginX = _initialMouseXPos - ManipulatorWidth/2;
+            _manipulatorOriginY = shiftY + _selection.End.Line*_font.Height - ManipulatorHeight - 4;
             Cursor = Cursors.Arrow;
             return true;
         }
@@ -442,25 +471,25 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         private void CheckToShowToolTip(int x, int y, int shiftY)
         {
-            var firstLine = -shiftY / _font.Height;
-            var lastLine = (-shiftY + ClientRectangle.Height) / _font.Height;
+            var firstLine = -shiftY/_font.Height;
+            var lastLine = (-shiftY + ClientRectangle.Height)/_font.Height;
 
             var shown = false;
             for (var i = 0; i < _markers.Count; ++i)
             {
                 if (_markers[i].Line >= firstLine && _markers[i].Line <= lastLine)
                 {
-                    var markerX = 2 + MarkerSize / 2;
-                    var markerY = (_markers[i].Line - 1 - firstLine) * _font.Height + MarkerSize / 2;
+                    var markerX = 2 + MarkerSize/2;
+                    var markerY = (_markers[i].Line - 1 - firstLine)*_font.Height + MarkerSize/2;
                     var dx = markerX - x;
                     var dy = markerY - y;
 
-                    if (dx * dx + dy * dy <= MarkerSize * MarkerSize / 2)
+                    if (dx*dx + dy*dy <= MarkerSize*MarkerSize/2)
                     {
                         if (_showingToolTipLine != _markers[i].Line)
                         {
                             _toolTip.RemoveAll();
-                            _toolTip.Show(_markers[i].Text, this, DockWidth, markerY - MarkerSize / 2);
+                            _toolTip.Show(_markers[i].Text, this, DockWidth, markerY - MarkerSize/2);
                             _showingToolTipLine = _markers[i].Line;
                         }
                         shown = true;
@@ -481,8 +510,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         private void ScrollToCaret()
         {
-            var firstLine = -AutoScrollPosition.Y / _font.Height;
-            var lastLine = (-AutoScrollPosition.Y + ClientRectangle.Height) / _font.Height;
+            var firstLine = -AutoScrollPosition.Y/_font.Height;
+            var lastLine = (-AutoScrollPosition.Y + ClientRectangle.Height)/_font.Height;
             if (_selection.End.Line < firstLine)
             {
                 ScrollUp(firstLine - _selection.End.Line);
@@ -492,9 +521,9 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 ScrollDown(_selection.End.Line - lastLine + 1);
             }
 
-            var firstColumn = (int)(-AutoScrollPosition.X / _charWidth) + 1;
-            var lastColumn = (int)((-AutoScrollPosition.X + ClientRectangle.Width) / _charWidth) - 1;
-            var add = (int)(ClientRectangle.Width / _charWidth / 3);
+            var firstColumn = (int) (-AutoScrollPosition.X/_charWidth) + 1;
+            var lastColumn = (int) ((-AutoScrollPosition.X + ClientRectangle.Width)/_charWidth) - 1;
+            var add = (int) (ClientRectangle.Width/_charWidth/3);
             if (_selection.End.Column < firstColumn)
             {
                 ScrollLeft(firstColumn - _selection.End.Column + Math.Min(add, _selection.End.Column));
@@ -504,7 +533,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 ScrollRight(
                     (int)
                         (_selection.End.Column - lastColumn +
-                         Math.Min(add, AutoScrollMinSize.Width / _charWidth - _selection.End.Column)));
+                         Math.Min(add, AutoScrollMinSize.Width/_charWidth - _selection.End.Column)));
             }
         }
 
@@ -513,14 +542,14 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             if (se.ScrollOrientation == ScrollOrientation.VerticalScroll)
             {
                 var newValue = se.NewValue;
-                newValue = (int)(Math.Ceiling(1d * newValue / _font.Height) * _font.Height);
+                newValue = (int) (Math.Ceiling(1d*newValue/_font.Height)*_font.Height);
                 VerticalScroll.Value = Math.Max(VerticalScroll.Minimum, Math.Min(VerticalScroll.Maximum, newValue));
             }
 
             if (se.ScrollOrientation == ScrollOrientation.HorizontalScroll)
             {
                 var newValue = se.NewValue;
-                newValue = (int)(Math.Ceiling(1d * newValue / _charWidth) * _charWidth);
+                newValue = (int) (Math.Ceiling(1d*newValue/_charWidth)*_charWidth);
                 HorizontalScroll.Value = Math.Max(HorizontalScroll.Minimum, Math.Min(HorizontalScroll.Maximum, newValue));
             }
 
@@ -537,7 +566,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             {
                 var ea = new ScrollEventArgs(ScrollEventType.SmallDecrement,
                     VerticalScroll.Value,
-                    VerticalScroll.Value - _font.Height * lines,
+                    VerticalScroll.Value - _font.Height*lines,
                     ScrollOrientation.VerticalScroll);
                 OnScroll(ea);
             }
@@ -559,7 +588,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             {
                 var ea = new ScrollEventArgs(ScrollEventType.SmallIncrement,
                     VerticalScroll.Value,
-                    VerticalScroll.Value + _font.Height * lines,
+                    VerticalScroll.Value + _font.Height*lines,
                     ScrollOrientation.VerticalScroll);
                 OnScroll(ea);
             }
@@ -571,7 +600,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             {
                 var ea = new ScrollEventArgs(ScrollEventType.SmallDecrement,
                     HorizontalScroll.Value,
-                    (int)(HorizontalScroll.Value - _charWidth * chars),
+                    (int) (HorizontalScroll.Value - _charWidth*chars),
                     ScrollOrientation.HorizontalScroll);
                 OnScroll(ea);
             }
@@ -583,7 +612,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             {
                 var ea = new ScrollEventArgs(ScrollEventType.SmallIncrement,
                     HorizontalScroll.Value,
-                    (int)(HorizontalScroll.Value + _charWidth * chars),
+                    (int) (HorizontalScroll.Value + _charWidth*chars),
                     ScrollOrientation.HorizontalScroll);
                 OnScroll(ea);
             }
@@ -592,8 +621,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             Invalidate();
-            if (e.Delta > 0) ScrollUp(e.Delta / WheelDelta * LinesPerScroll);
-            else ScrollDown(-e.Delta / WheelDelta * LinesPerScroll);
+            if (e.Delta > 0) ScrollUp(e.Delta/WheelDelta*LinesPerScroll);
+            else ScrollDown(-e.Delta/WheelDelta*LinesPerScroll);
         }
 
         #endregion
@@ -613,8 +642,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         private void SetCharPosToNearestToPoint(Position pos, int x, int y, int shiftX, int shiftY)
         {
-            var line = Math.Max((y - shiftY) / _font.Height, 0);
-            var column = (int)Math.Max((x - DockWidth - shiftX + 3 - OffsetFromDock) / _charWidth, 0);
+            var line = Math.Max((y - shiftY)/_font.Height, 0);
+            var column = (int) Math.Max((x - DockWidth - shiftX + 3 - OffsetFromDock)/_charWidth, 0);
             if (line > _lines.Length - 1)
             {
                 pos.Line = _lines.Length - 1;
@@ -650,7 +679,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         private void PosCaret()
         {
-            var caretX = (int)(OffsetFromDock + AutoScrollPosition.X + DockWidth + _selection.End.Column * _charWidth);
+            var caretX = (int) (OffsetFromDock + AutoScrollPosition.X + DockWidth + _selection.End.Column*_charWidth);
             if (caretX < DockWidth)
             {
                 if (_caretVisible)
@@ -666,7 +695,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                     WinApi.ShowCaret(Handle);
                     _caretVisible = true;
                 }
-                WinApi.SetCaretPos(caretX, AutoScrollPosition.Y + _selection.End.Line * _font.Height);
+                WinApi.SetCaretPos(caretX, AutoScrollPosition.Y + _selection.End.Line*_font.Height);
             }
         }
 
@@ -957,11 +986,11 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             {
                 if (cnt + _lines[i].Length + 1 > index)
                 {
-                    return new Position { Line = i, Column = index - cnt };
+                    return new Position {Line = i, Column = index - cnt};
                 }
                 cnt += _lines[i].Length + 1;
             }
-            return new Position { Line = _lines.Length - 1, Column = _lines[_lines.Length - 1].Length };
+            return new Position {Line = _lines.Length - 1, Column = _lines[_lines.Length - 1].Length};
         }
 
         #endregion
@@ -988,7 +1017,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             {
                 _charWidth =
                     e.Graphics.MeasureString("a", _font, new PointF(0, 0), StringFormat.GenericTypographic).Width;
-                HorizontalScroll.SmallChange = (int)_charWidth + 1;
+                HorizontalScroll.SmallChange = (int) _charWidth + 1;
             }
             if (_needToSetLayoutSize)
             {
@@ -1008,45 +1037,53 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         private void DrawVisibleText(Graphics g, int shiftX, int shiftY)
         {
-            var firstLine = -shiftY / _font.Height;
-            var lastLine = (-shiftY + ClientRectangle.Height) / _font.Height;
+            var firstLine = -shiftY/_font.Height;
+            var lastLine = (-shiftY + ClientRectangle.Height)/_font.Height;
 
             g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             for (var i = firstLine; i <= lastLine && i < _lines.Length; ++i)
             {
-                DrawLine(g, _lines[i], shiftX, shiftY, _font.Height * i);
+                DrawLine(g, _lines[i], shiftX, shiftY, _font.Height*i);
             }
+        }
+
+        private bool Intersects(bool[] mask, HighlightingRange r)
+        {
+            for (var i = r.Start; i < r.Start + r.Length; ++i)
+            {
+                if (mask[i]) return true;
+            }
+            return false;
         }
 
         private List<HighlightingRange> HighlightLine(string line)
         {
             var ranges = new List<HighlightingRange>();
-            var text = line;
-            var slahses = line.IndexOf("//", StringComparison.Ordinal);
-            if (slahses != -1)
-            {
-                text = text.Substring(0, slahses);
-            }
+            var mask = new bool[line.Length];
 
             if (_highlightingRules != null)
             {
                 for (var i = 0; i < _highlightingRules.Length; ++i)
                 {
-                    var matches = _highlightingRules[i].Pattern.Matches(text);
+                    var matches = _highlightingRules[i].Pattern.Matches(line);
                     foreach (Match m in matches)
                     {
-                        ranges.Add(new HighlightingRange
+                        var cnd = new HighlightingRange
                         {
                             Color = _highlightingRules[i].Color,
                             Start = m.Groups[1].Index,
                             Length = m.Groups[1].Length
-                        });
+                        };
+                        if (!Intersects(mask, cnd))
+                        {
+                            ranges.Add(cnd);
+                            for (var j = cnd.Start; j < cnd.Start + cnd.Length; ++j)
+                            {
+                                mask[j] = true;
+                            }
+                        }
                     }
                 }
-            }
-            if (slahses != -1)
-            {
-                ranges.Add(new HighlightingRange { Color = Color.Green, Start = slahses, Length = line.Length - slahses });
             }
             ranges.Sort((a, b) => a.Start.CompareTo(b.Start));
             return ranges;
@@ -1059,22 +1096,22 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             for (var i = 0; i < ranges.Count; ++i)
             {
                 g.DrawString(line.Substring(last, ranges[i].Start - last), _font, new SolidBrush(_defaultTextColor),
-                    shiftX + last * _charWidth, shiftY + y, StringFormat.GenericTypographic);
+                    shiftX + last*_charWidth, shiftY + y, StringFormat.GenericTypographic);
 
                 g.DrawString(line.Substring(ranges[i].Start, ranges[i].Length), _font, new SolidBrush(ranges[i].Color),
-                    shiftX + ranges[i].Start * _charWidth, shiftY + y, StringFormat.GenericTypographic);
+                    shiftX + ranges[i].Start*_charWidth, shiftY + y, StringFormat.GenericTypographic);
                 last = ranges[i].Start + ranges[i].Length;
             }
             g.DrawString(line.Substring(last, line.Length - last), _font, new SolidBrush(_defaultTextColor),
-                shiftX + last * _charWidth, shiftY + y, StringFormat.GenericTypographic);
+                shiftX + last*_charWidth, shiftY + y, StringFormat.GenericTypographic);
         }
 
         private void DrawVisibleSelection(Graphics g, int shiftX, int shiftY)
         {
             if (_selection.Start.Line == _selection.End.Line)
             {
-                var firstLine = -shiftY / _font.Height;
-                var lastLine = (-shiftY + ClientRectangle.Height) / _font.Height;
+                var firstLine = -shiftY/_font.Height;
+                var lastLine = (-shiftY + ClientRectangle.Height)/_font.Height;
                 if (_selection.Start.Column != _selection.End.Column && _selection.Start.Line >= firstLine &&
                     _selection.Start.Line <= lastLine)
                 {
@@ -1087,8 +1124,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 var sel = _selection.Sorted();
                 var firstLine = sel.Start.Line;
                 var lastLine = sel.End.Line;
-                firstLine = Math.Max(firstLine, -shiftY / _font.Height);
-                lastLine = Math.Min(lastLine, (-shiftY + ClientRectangle.Height) / _font.Height);
+                firstLine = Math.Max(firstLine, -shiftY/_font.Height);
+                lastLine = Math.Min(lastLine, (-shiftY + ClientRectangle.Height)/_font.Height);
 
                 for (var i = firstLine; i <= lastLine; ++i)
                 {
@@ -1113,23 +1150,23 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             if (column1 == 0 && column2 == 0 && line != _selection.Start.Line && line != _selection.End.Line)
                 column2 = 1;
             g.FillRectangle(_selectionBrush,
-                shiftX + column1 * _charWidth,
-                shiftY + line * _font.Height,
-                (column2 - column1) * _charWidth,
+                shiftX + column1*_charWidth,
+                shiftY + line*_font.Height,
+                (column2 - column1)*_charWidth,
                 _font.Height);
         }
 
         private void DrawVisibleMarkers(Graphics g, int shiftY)
         {
-            var firstLine = -shiftY / _font.Height;
-            var lastLine = (-shiftY + ClientRectangle.Height) / _font.Height;
+            var firstLine = -shiftY/_font.Height;
+            var lastLine = (-shiftY + ClientRectangle.Height)/_font.Height;
             g.SmoothingMode = SmoothingMode.AntiAlias;
             for (var i = 0; i < _markers.Count; ++i)
             {
                 if (_markers[i].Line >= firstLine && _markers[i].Line <= lastLine)
                 {
                     g.FillEllipse(new SolidBrush(_markers[i].Color), 2,
-                        shiftY % _font.Height + (_markers[i].Line - 1 - firstLine) * _font.Height, MarkerSize,
+                        shiftY%_font.Height + (_markers[i].Line - 1 - firstLine)*_font.Height, MarkerSize,
                         MarkerSize);
                 }
             }
@@ -1139,13 +1176,13 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         private void DrawLineSelector(Graphics g, int shiftY)
         {
             if (!_selection.IsEmpty || !Focused) return;
-            var firstLine = -shiftY / _font.Height;
-            var lastLine = (-shiftY + ClientRectangle.Height) / _font.Height;
+            var firstLine = -shiftY/_font.Height;
+            var lastLine = (-shiftY + ClientRectangle.Height)/_font.Height;
             if (_selection.End.Line >= firstLine && _selection.End.Line <= lastLine)
             {
                 g.SmoothingMode = SmoothingMode.AntiAlias;
                 g.DrawRectangle(_lineSelectorPen, DockWidth + OffsetFromDock,
-                    shiftY % _font.Height + (_selection.End.Line - firstLine) * _font.Height,
+                    shiftY%_font.Height + (_selection.End.Line - firstLine)*_font.Height,
                     ClientRectangle.Width - DockWidth - 1 - OffsetFromDock, _font.Height - 1);
                 g.SmoothingMode = SmoothingMode.None;
             }
@@ -1156,7 +1193,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             if (!_manipulating) return;
             g.FillRectangle(_manipulatorBack, _manipulatorOriginX, _manipulatorOriginY, ManipulatorWidth,
                 ManipulatorHeight);
-            var a = _manipulatorOriginX + ManipulatorWidth / 2;
+            var a = _manipulatorOriginX + ManipulatorWidth/2;
             var b = a + _manipulatorValue;
             if (a > b)
             {

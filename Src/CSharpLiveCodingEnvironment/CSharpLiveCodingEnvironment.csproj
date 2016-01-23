@@ -51,7 +51,7 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TmpBlocksClass.cs" />
+    <Compile Include="CodeSnippets.cs" />
     <Compile Include="WatchForm.cs">
       <SubType>Form</SubType>
     </Compile>

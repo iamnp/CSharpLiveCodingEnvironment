@@ -17,7 +17,7 @@ namespace CSharpLiveCodingEnvironment
             WaitAfterEachTick = waitAfterEachTIckCheckBox.Checked;
             WaitAfterEachTickMsec = (int) waitAfterEachTickNumericUpDown.Value;
             DesiredDt = 1000/(int) desiredFramerateNumericUpDown.Value;
-            StoreLastFrames = (int)storeLastFramesNumericUpDown.Value;
+            StoreLastFrames = (int) storeLastFramesNumericUpDown.Value;
         }
 
         public static SettingsForm Instance => _instance ?? (_instance = new SettingsForm());
@@ -60,18 +60,18 @@ namespace CSharpLiveCodingEnvironment
 
         private void storeLastFramesNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            StoreLastFrames = (int)storeLastFramesNumericUpDown.Value;
+            StoreLastFrames = (int) storeLastFramesNumericUpDown.Value;
             StoreLastFramesParamChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void desiredFramerateNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            DesiredDt = 1000 / (int)desiredFramerateNumericUpDown.Value;
+            DesiredDt = 1000/(int) desiredFramerateNumericUpDown.Value;
         }
 
         private void waitAfterEachTickNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            WaitAfterEachTickMsec = (int)waitAfterEachTickNumericUpDown.Value;
+            WaitAfterEachTickMsec = (int) waitAfterEachTickNumericUpDown.Value;
         }
 
         private void topMostCheckBox_CheckedChanged(object sender, EventArgs e)

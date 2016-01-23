@@ -20,12 +20,14 @@ namespace CSharpLiveCodingEnvironment
             if (e.Delta < 0)
             {
                 if (_flickerlessDataGridView.FirstDisplayedCell.RowIndex < _flickerlessDataGridView.RowCount - 1)
-                    _flickerlessDataGridView.FirstDisplayedScrollingRowIndex = _flickerlessDataGridView.FirstDisplayedCell.RowIndex + 1;
+                    _flickerlessDataGridView.FirstDisplayedScrollingRowIndex =
+                        _flickerlessDataGridView.FirstDisplayedCell.RowIndex + 1;
             }
             else if (e.Delta > 0)
             {
                 if (_flickerlessDataGridView.FirstDisplayedCell.RowIndex > 0)
-                    _flickerlessDataGridView.FirstDisplayedScrollingRowIndex = _flickerlessDataGridView.FirstDisplayedCell.RowIndex - 1;
+                    _flickerlessDataGridView.FirstDisplayedScrollingRowIndex =
+                        _flickerlessDataGridView.FirstDisplayedCell.RowIndex - 1;
             }
         }
 

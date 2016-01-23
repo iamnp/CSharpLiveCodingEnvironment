@@ -25,10 +25,15 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
         public void AddDummySnapshots(int count)
         {
-            int lastSnapshot = Snapshots.Count - 1;
-            for (int i = 0; i < count; ++i)
+            var lastSnapshot = Snapshots.Count - 1;
+            for (var i = 0; i < count; ++i)
             {
-                Snapshots.Add(new Snapshot {Dt = Snapshots[lastSnapshot].Dt, State = Snapshots[lastSnapshot].State, Input = Snapshots[lastSnapshot].Input });
+                Snapshots.Add(new Snapshot
+                {
+                    Dt = Snapshots[lastSnapshot].Dt,
+                    State = Snapshots[lastSnapshot].State,
+                    Input = Snapshots[lastSnapshot].Input
+                });
             }
         }
 

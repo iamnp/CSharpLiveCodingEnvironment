@@ -14,38 +14,6 @@ namespace CSharpLiveCodingEnvironment
 {
     internal partial class MainForm : Form
     {
-        private const string HelloWorldSourceCode = @"[MainClass]
-class Game
-{
-  [StateField]
-  double x;
-
-  [InitMethod]
-  void Init() {
-    x = 0.0;
-  }
-
-  [TickMethod]
-  void Tick(double dt, Dictionary<char, bool> input) {
-    x += 0.05 * dt;
-    if (x > 450) x = 0;
-  }
-
-  [DrawMethod]
-  void DrawScene(DrawingContext dc) {
-    dc.DrawRectangle(Brushes.White, null, new Rect(0, 0, 500, 500));
-    
-    DrawCircle(dc);
-    
-    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(255, 100, 100, 250)),
-      null, new Rect(x - 25, 300, 50, 50));
-  }
-
-  void DrawCircle(DrawingContext dc) {
-    dc.DrawEllipse(new SolidColorBrush(Color.FromArgb(255, 120, 120, 120)),
-      null, new Point(x, 200), 10, 10);
-  }
-}";
         private readonly CodeCompiler _codeCompiler;
         private readonly DynamicGame _dynamicGame;
         private readonly GraphicsControl _graphics;
@@ -69,28 +37,17 @@ class Game
             _graphics.KeyDown += GraphicsOnKeyDown;
             _graphics.KeyUp += GraphicsOnKeyUp;
 
-            codeEditor.Text = HelloWorldSourceCode;
+            codeEditor.Text = CodeSnippets.HelloWorld;
             codeEditor.TextChanged += CodeEditorOnTextChanged;
 
             _dynamicGame = new DynamicGame(_graphics, toolStripStatusLabel1)
             {
                 CurrentTrackBarValue = trackBar1.Value
             };
-            _dynamicGame.CurrentTrackBarValueChanged += DynamicGameOnCurrentTrackBarValueChanged;
             _dynamicGame.FieldsChanged += DynamicGameOnFieldsChanged;
-
-            new TmpBlocksClass(_graphics, _dynamicGame);
+            _graphics.MouseDown += (sender, args) => _graphics.Focus();
 
             UpdateFormTitle();
-        }
-
-        private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
-        {
-            if (_dynamicGame.CurrentTrackBarValue >= trackBar1.Minimum &&
-                _dynamicGame.CurrentTrackBarValue <= trackBar1.Maximum)
-            {
-                trackBar1.Value = _dynamicGame.CurrentTrackBarValue;
-            }
         }
 
         private string OpenedFilePath
@@ -243,7 +200,7 @@ class Game
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!CurrentFileSaved && codeEditor.Text != HelloWorldSourceCode &&
+            if (!CurrentFileSaved && codeEditor.Text != CodeSnippets.HelloWorld &&
                 MessageBox.Show("Сохранить текущий файл?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SaveCurrentFile();
@@ -302,7 +259,7 @@ class Game
 
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!CurrentFileSaved && codeEditor.Text != HelloWorldSourceCode &&
+            if (!CurrentFileSaved && codeEditor.Text != CodeSnippets.HelloWorld &&
                 MessageBox.Show("Сохранить текущий файл?", "Сохранение", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 SaveCurrentFile();
@@ -312,14 +269,14 @@ class Game
             CurrentFileSaved = false;
 
             _forceReset = true;
-            codeEditor.Text = HelloWorldSourceCode;
+            codeEditor.Text = CodeSnippets.HelloWorld;
             _forceReset = false;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var cancel = false;
-            if (!CurrentFileSaved && codeEditor.Text != HelloWorldSourceCode)
+            if (!CurrentFileSaved && codeEditor.Text != CodeSnippets.HelloWorld)
             {
                 var r = MessageBox.Show("Сохранить текущий файл?", "Сохранение", MessageBoxButtons.YesNoCancel);
                 if (r == DialogResult.Yes)
@@ -341,6 +298,31 @@ class Game
                 _dynamicGame.Stop();
                 WinApi.TimeEndPeriod(1);
             }
+        }
+
+        private void ellipseButton_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.Ellipse);
+        }
+
+        private void rectangleButton_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.Rectangle);
+        }
+
+        private void lineButton_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.Line);
+        }
+
+        private void roundedRectangleButton_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.RoundedRectangle);
+        }
+
+        private void textButton_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.Text);
         }
     }
 }
