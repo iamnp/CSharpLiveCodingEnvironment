@@ -74,7 +74,7 @@ namespace CSharpLiveCodingEnvironment
 
         private void DynamicGameOnPausedChanged(object sender, EventArgs eventArgs)
         {
-            Invoke((MethodInvoker)SetResumedMode);
+            Invoke((MethodInvoker) SetResumedMode);
         }
 
         private void DynamicGameOnCurrentTrackBarValueChanged(object sender, EventArgs eventArgs)
@@ -140,8 +140,7 @@ namespace CSharpLiveCodingEnvironment
 
         private void TogglePause()
         {
-            _dynamicGame.Paused = !_dynamicGame.Paused;
-            if (!_dynamicGame.Paused)
+            if (_dynamicGame.Paused)
             {
                 SetResumedMode();
             }
@@ -153,6 +152,7 @@ namespace CSharpLiveCodingEnvironment
 
         private void SetPausedMode()
         {
+            _dynamicGame.Puase();
             _dynamicGame.NeedToSimulateTimelapseScene = true;
             pauseToolStripMenuItem.Text = "Продолжить";
             trackBar1.Visible = true;
@@ -160,6 +160,7 @@ namespace CSharpLiveCodingEnvironment
 
         private void SetResumedMode()
         {
+            _dynamicGame.Resume();
             pauseToolStripMenuItem.Text = "Пауза";
             trackBar1.Visible = false;
         }

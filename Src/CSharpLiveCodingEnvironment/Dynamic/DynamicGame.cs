@@ -25,10 +25,11 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         private CompiledData _compiledDataToBeReplaced;
         private int _currentPausedFrame = -1;
 
+        private bool _justPaused;
+
         private Task _sceneLoopTask;
         public int CurrentTrackBarValue;
         public bool NeedToSimulateTimelapseScene;
-        public bool Paused;
 
         public DynamicGame(GraphicsControl g, ToolStripStatusLabel logLabel)
         {
@@ -42,6 +43,8 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
             _logLabel = logLabel;
         }
+
+        public bool Paused { get; private set; }
 
         public CompiledData CompiledData { get; private set; }
 
@@ -98,6 +101,17 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             _evExit.Set();
             _sceneLoopTask.Wait();
             _evExit.Close();
+        }
+
+        public void Puase()
+        {
+            _justPaused = true;
+            Paused = true;
+        }
+
+        public void Resume()
+        {
+            Paused = false;
         }
 
         public void SetInput(char key, bool v)
@@ -157,11 +171,17 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     else
                     {
                         var count = SettingsForm.Instance.StoreLastFrames - _dynamicGameSimulator.Snapshots.Count;
-                        CurrentTrackBarValue = _dynamicGameSimulator.Snapshots.Count;
-                        localCurrentTrackBarValue = CurrentTrackBarValue;
+                        if (_justPaused)
+                        {
+                            CurrentTrackBarValue = _dynamicGameSimulator.Snapshots.Count;
+                            localCurrentTrackBarValue = CurrentTrackBarValue;
+                        }
                         _dynamicGameSimulator.AddDummySnapshots(count);
                         _dynamicGameSimulator.SimulateGame(_dynamicGameSimulator.Snapshots.Count - count - 1);
-                        CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
+                        if (_justPaused)
+                        {
+                            CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
+                        }
                     }
                     GraphicsControl.Dispatcher.Invoke(_dynamicGameSimulator.RenderTimelapseScene);
                 }
@@ -260,6 +280,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 }
 
                 gameTickStopwatch.Stop();
+                _justPaused = false;
 
                 //log
                 if (ii++%40 == 0)
