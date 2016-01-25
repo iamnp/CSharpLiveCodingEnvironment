@@ -6,10 +6,10 @@ The idea of the project is based on Bret Victor's talk 'Inventing on Principle' 
 
 TODOs
 ----
- - Rethink snippet buttons (editor menu?)
+ - Snippet buttons to autocomplete menu
+ - Custom drawing methods
  - Refactor DynamicGame.GameTick()
  - Add comments
- - Custom drawing methods
 
 License
 ----
