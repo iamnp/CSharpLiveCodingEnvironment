@@ -9,8 +9,6 @@ TODOs
  - WPF drawing methods wrappers
  - Refactor DynamicGame.GameTick()
  - Add comments
-
-
  - Fix comments and string literals highlighting
 
 License
