@@ -6,10 +6,12 @@ The idea of the project is based on Bret Victor's talk 'Inventing on Principle' 
 
 TODOs
 ----
- - Snippet buttons to autocomplete menu
- - Custom drawing methods
+ - WPF drawing methods wrappers
  - Refactor DynamicGame.GameTick()
  - Add comments
+
+
+ - Fix comments and string literals highlighting
 
 License
 ----

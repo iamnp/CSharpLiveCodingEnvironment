@@ -114,6 +114,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
@@ -134,7 +135,39 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Icons\ellipse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\ellipse_stroke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\ellipse_with_stroke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\rect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\rect_stroke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\rect_with_stroke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\rounded_rect.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\rounded_rect_stroke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\rounded_rect_with_stroke.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icons\text.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

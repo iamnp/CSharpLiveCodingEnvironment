@@ -49,15 +49,32 @@ namespace CSharpLiveCodingEnvironment
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ellipseButton = new System.Windows.Forms.Button();
-            this.rectangleButton = new System.Windows.Forms.Button();
-            this.lineButton = new System.Windows.Forms.Button();
-            this.roundedRectangleButton = new System.Windows.Forms.Button();
-            this.textButton = new System.Windows.Forms.Button();
+            this.drawEllipsePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawEllipseWithStrokePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawEllipseStrokePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawRectPictureBox = new System.Windows.Forms.PictureBox();
+            this.drawRectWithStrokePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawRectStrokePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawRoundedRectPictureBox = new System.Windows.Forms.PictureBox();
+            this.drawRoundedRectWithStrokePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawRoundedRectStrokePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawLinePictureBox = new System.Windows.Forms.PictureBox();
+            this.drawTextPictureBox = new System.Windows.Forms.PictureBox();
             this.codeEditor = new CSharpLiveCodingEnvironment.CodeEditing.CodeEditor();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawEllipsePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawEllipseWithStrokePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawEllipseStrokePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRectPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRectWithStrokePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRectStrokePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRoundedRectPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRoundedRectWithStrokePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRoundedRectStrokePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawLinePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawTextPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // trackBar1
@@ -91,7 +108,7 @@ namespace CSharpLiveCodingEnvironment
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1159, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1150, 24);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -205,7 +222,7 @@ namespace CSharpLiveCodingEnvironment
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 583);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1159, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1150, 22);
             this.statusStrip1.TabIndex = 12;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -215,55 +232,126 @@ namespace CSharpLiveCodingEnvironment
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // ellipseButton
+            // drawEllipsePictureBox
             // 
-            this.ellipseButton.Location = new System.Drawing.Point(512, 33);
-            this.ellipseButton.Name = "ellipseButton";
-            this.ellipseButton.Size = new System.Drawing.Size(70, 40);
-            this.ellipseButton.TabIndex = 14;
-            this.ellipseButton.Text = "Ellipse";
-            this.ellipseButton.UseVisualStyleBackColor = true;
-            this.ellipseButton.Click += new System.EventHandler(this.ellipseButton_Click);
+            this.drawEllipsePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawEllipsePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.ellipse;
+            this.drawEllipsePictureBox.Location = new System.Drawing.Point(1112, 28);
+            this.drawEllipsePictureBox.Name = "drawEllipsePictureBox";
+            this.drawEllipsePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawEllipsePictureBox.TabIndex = 19;
+            this.drawEllipsePictureBox.TabStop = false;
+            this.drawEllipsePictureBox.Click += new System.EventHandler(this.drawEllipsePictureBox_Click);
             // 
-            // rectangleButton
+            // drawEllipseWithStrokePictureBox
             // 
-            this.rectangleButton.Location = new System.Drawing.Point(588, 33);
-            this.rectangleButton.Name = "rectangleButton";
-            this.rectangleButton.Size = new System.Drawing.Size(70, 40);
-            this.rectangleButton.TabIndex = 15;
-            this.rectangleButton.Text = "Rectangle";
-            this.rectangleButton.UseVisualStyleBackColor = true;
-            this.rectangleButton.Click += new System.EventHandler(this.rectangleButton_Click);
+            this.drawEllipseWithStrokePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawEllipseWithStrokePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.ellipse_with_stroke;
+            this.drawEllipseWithStrokePictureBox.Location = new System.Drawing.Point(1112, 66);
+            this.drawEllipseWithStrokePictureBox.Name = "drawEllipseWithStrokePictureBox";
+            this.drawEllipseWithStrokePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawEllipseWithStrokePictureBox.TabIndex = 20;
+            this.drawEllipseWithStrokePictureBox.TabStop = false;
+            this.drawEllipseWithStrokePictureBox.Click += new System.EventHandler(this.drawEllipseWithStrokePictureBox_Click);
             // 
-            // lineButton
+            // drawEllipseStrokePictureBox
             // 
-            this.lineButton.Location = new System.Drawing.Point(664, 33);
-            this.lineButton.Name = "lineButton";
-            this.lineButton.Size = new System.Drawing.Size(70, 40);
-            this.lineButton.TabIndex = 16;
-            this.lineButton.Text = "Line";
-            this.lineButton.UseVisualStyleBackColor = true;
-            this.lineButton.Click += new System.EventHandler(this.lineButton_Click);
+            this.drawEllipseStrokePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawEllipseStrokePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.ellipse_stroke;
+            this.drawEllipseStrokePictureBox.Location = new System.Drawing.Point(1112, 104);
+            this.drawEllipseStrokePictureBox.Name = "drawEllipseStrokePictureBox";
+            this.drawEllipseStrokePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawEllipseStrokePictureBox.TabIndex = 21;
+            this.drawEllipseStrokePictureBox.TabStop = false;
+            this.drawEllipseStrokePictureBox.Click += new System.EventHandler(this.drawEllipseStrokePictureBox_Click);
             // 
-            // roundedRectangleButton
+            // drawRectPictureBox
             // 
-            this.roundedRectangleButton.Location = new System.Drawing.Point(740, 33);
-            this.roundedRectangleButton.Name = "roundedRectangleButton";
-            this.roundedRectangleButton.Size = new System.Drawing.Size(70, 40);
-            this.roundedRectangleButton.TabIndex = 17;
-            this.roundedRectangleButton.Text = "Rounded Rect";
-            this.roundedRectangleButton.UseVisualStyleBackColor = true;
-            this.roundedRectangleButton.Click += new System.EventHandler(this.roundedRectangleButton_Click);
+            this.drawRectPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawRectPictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.rect;
+            this.drawRectPictureBox.Location = new System.Drawing.Point(1112, 152);
+            this.drawRectPictureBox.Name = "drawRectPictureBox";
+            this.drawRectPictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawRectPictureBox.TabIndex = 22;
+            this.drawRectPictureBox.TabStop = false;
+            this.drawRectPictureBox.Click += new System.EventHandler(this.drawRectPictureBox_Click);
             // 
-            // textButton
+            // drawRectWithStrokePictureBox
             // 
-            this.textButton.Location = new System.Drawing.Point(816, 33);
-            this.textButton.Name = "textButton";
-            this.textButton.Size = new System.Drawing.Size(70, 40);
-            this.textButton.TabIndex = 18;
-            this.textButton.Text = "Text";
-            this.textButton.UseVisualStyleBackColor = true;
-            this.textButton.Click += new System.EventHandler(this.textButton_Click);
+            this.drawRectWithStrokePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawRectWithStrokePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.rect_with_stroke;
+            this.drawRectWithStrokePictureBox.Location = new System.Drawing.Point(1112, 190);
+            this.drawRectWithStrokePictureBox.Name = "drawRectWithStrokePictureBox";
+            this.drawRectWithStrokePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawRectWithStrokePictureBox.TabIndex = 23;
+            this.drawRectWithStrokePictureBox.TabStop = false;
+            this.drawRectWithStrokePictureBox.Click += new System.EventHandler(this.drawRectWithStrokePictureBox_Click);
+            // 
+            // drawRectStrokePictureBox
+            // 
+            this.drawRectStrokePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawRectStrokePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.rect_stroke;
+            this.drawRectStrokePictureBox.Location = new System.Drawing.Point(1112, 228);
+            this.drawRectStrokePictureBox.Name = "drawRectStrokePictureBox";
+            this.drawRectStrokePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawRectStrokePictureBox.TabIndex = 24;
+            this.drawRectStrokePictureBox.TabStop = false;
+            this.drawRectStrokePictureBox.Click += new System.EventHandler(this.drawRectStrokePictureBox_Click);
+            // 
+            // drawRoundedRectPictureBox
+            // 
+            this.drawRoundedRectPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawRoundedRectPictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.rounded_rect;
+            this.drawRoundedRectPictureBox.Location = new System.Drawing.Point(1112, 278);
+            this.drawRoundedRectPictureBox.Name = "drawRoundedRectPictureBox";
+            this.drawRoundedRectPictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawRoundedRectPictureBox.TabIndex = 25;
+            this.drawRoundedRectPictureBox.TabStop = false;
+            this.drawRoundedRectPictureBox.Click += new System.EventHandler(this.drawRoundedRectPictureBox_Click);
+            // 
+            // drawRoundedRectWithStrokePictureBox
+            // 
+            this.drawRoundedRectWithStrokePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawRoundedRectWithStrokePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.rounded_rect_with_stroke;
+            this.drawRoundedRectWithStrokePictureBox.Location = new System.Drawing.Point(1112, 316);
+            this.drawRoundedRectWithStrokePictureBox.Name = "drawRoundedRectWithStrokePictureBox";
+            this.drawRoundedRectWithStrokePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawRoundedRectWithStrokePictureBox.TabIndex = 26;
+            this.drawRoundedRectWithStrokePictureBox.TabStop = false;
+            this.drawRoundedRectWithStrokePictureBox.Click += new System.EventHandler(this.drawRoundedRectWithStrokePictureBox_Click);
+            // 
+            // drawRoundedRectStrokePictureBox
+            // 
+            this.drawRoundedRectStrokePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawRoundedRectStrokePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.rounded_rect_stroke;
+            this.drawRoundedRectStrokePictureBox.Location = new System.Drawing.Point(1112, 354);
+            this.drawRoundedRectStrokePictureBox.Name = "drawRoundedRectStrokePictureBox";
+            this.drawRoundedRectStrokePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawRoundedRectStrokePictureBox.TabIndex = 27;
+            this.drawRoundedRectStrokePictureBox.TabStop = false;
+            this.drawRoundedRectStrokePictureBox.Click += new System.EventHandler(this.drawRoundedRectStrokePictureBox_Click);
+            // 
+            // drawLinePictureBox
+            // 
+            this.drawLinePictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawLinePictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.line;
+            this.drawLinePictureBox.Location = new System.Drawing.Point(1112, 404);
+            this.drawLinePictureBox.Name = "drawLinePictureBox";
+            this.drawLinePictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawLinePictureBox.TabIndex = 28;
+            this.drawLinePictureBox.TabStop = false;
+            this.drawLinePictureBox.Click += new System.EventHandler(this.drawLinePictureBox_Click);
+            // 
+            // drawTextPictureBox
+            // 
+            this.drawTextPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.drawTextPictureBox.Image = global::CSharpLiveCodingEnvironment.Properties.Resources.text;
+            this.drawTextPictureBox.Location = new System.Drawing.Point(1112, 442);
+            this.drawTextPictureBox.Name = "drawTextPictureBox";
+            this.drawTextPictureBox.Size = new System.Drawing.Size(32, 32);
+            this.drawTextPictureBox.TabIndex = 29;
+            this.drawTextPictureBox.TabStop = false;
+            this.drawTextPictureBox.Click += new System.EventHandler(this.drawTextPictureBox_Click);
             // 
             // codeEditor
             // 
@@ -272,22 +360,28 @@ namespace CSharpLiveCodingEnvironment
             | System.Windows.Forms.AnchorStyles.Right)));
             this.codeEditor.AutoScroll = true;
             this.codeEditor.AutoScrollMinSize = new System.Drawing.Size(21, 16);
-            this.codeEditor.Location = new System.Drawing.Point(512, 76);
+            this.codeEditor.Location = new System.Drawing.Point(512, 28);
             this.codeEditor.Name = "codeEditor";
             this.codeEditor.SelectedText = "";
-            this.codeEditor.Size = new System.Drawing.Size(635, 500);
+            this.codeEditor.Size = new System.Drawing.Size(594, 548);
             this.codeEditor.TabIndex = 13;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1159, 605);
-            this.Controls.Add(this.textButton);
-            this.Controls.Add(this.roundedRectangleButton);
-            this.Controls.Add(this.lineButton);
-            this.Controls.Add(this.rectangleButton);
-            this.Controls.Add(this.ellipseButton);
+            this.ClientSize = new System.Drawing.Size(1150, 605);
+            this.Controls.Add(this.drawTextPictureBox);
+            this.Controls.Add(this.drawLinePictureBox);
+            this.Controls.Add(this.drawRoundedRectStrokePictureBox);
+            this.Controls.Add(this.drawRoundedRectWithStrokePictureBox);
+            this.Controls.Add(this.drawRoundedRectPictureBox);
+            this.Controls.Add(this.drawRectStrokePictureBox);
+            this.Controls.Add(this.drawRectWithStrokePictureBox);
+            this.Controls.Add(this.drawRectPictureBox);
+            this.Controls.Add(this.drawEllipseStrokePictureBox);
+            this.Controls.Add(this.drawEllipseWithStrokePictureBox);
+            this.Controls.Add(this.drawEllipsePictureBox);
             this.Controls.Add(this.codeEditor);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.elementHost1);
@@ -306,6 +400,17 @@ namespace CSharpLiveCodingEnvironment
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.drawEllipsePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawEllipseWithStrokePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawEllipseStrokePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRectPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRectWithStrokePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRectStrokePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRoundedRectPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRoundedRectWithStrokePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawRoundedRectStrokePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawLinePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.drawTextPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,11 +437,17 @@ namespace CSharpLiveCodingEnvironment
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem newFileToolStripMenuItem;
-        private System.Windows.Forms.Button ellipseButton;
-        private System.Windows.Forms.Button rectangleButton;
-        private System.Windows.Forms.Button lineButton;
-        private System.Windows.Forms.Button roundedRectangleButton;
-        private System.Windows.Forms.Button textButton;
+        private System.Windows.Forms.PictureBox drawEllipsePictureBox;
+        private System.Windows.Forms.PictureBox drawEllipseWithStrokePictureBox;
+        private System.Windows.Forms.PictureBox drawEllipseStrokePictureBox;
+        private System.Windows.Forms.PictureBox drawRectPictureBox;
+        private System.Windows.Forms.PictureBox drawRectWithStrokePictureBox;
+        private System.Windows.Forms.PictureBox drawRectStrokePictureBox;
+        private System.Windows.Forms.PictureBox drawRoundedRectPictureBox;
+        private System.Windows.Forms.PictureBox drawRoundedRectWithStrokePictureBox;
+        private System.Windows.Forms.PictureBox drawRoundedRectStrokePictureBox;
+        private System.Windows.Forms.PictureBox drawLinePictureBox;
+        private System.Windows.Forms.PictureBox drawTextPictureBox;
     }
 }
 

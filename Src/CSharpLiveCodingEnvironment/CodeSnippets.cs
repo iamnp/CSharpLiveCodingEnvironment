@@ -6,6 +6,9 @@
         private const string DarkBrush = @"new SolidColorBrush(" + DarkColor + @")";
         private const string DarkPen = @"new Pen(" + DarkBrush + @", 3)";
 
+        private const string LightColor = @"Color.FromArgb(255, 200, 200, 200)";
+        private const string LightBrush = @"new SolidColorBrush(" + LightColor + @")";
+
         public static string HelloWorld = @"[MainClass]
 class Game
 {
@@ -40,16 +43,34 @@ class Game
 }";
 
         public static string Ellipse =>
-            @"DrawEllipse(" + DarkBrush + @", null, new Point(50, 50), 20, 20);";
+            @"DrawEllipse(" + LightBrush + @", null, new Point(50, 50), 20, 20);";
+
+        public static string EllipseWithStroke =>
+            @"DrawEllipse(" + LightBrush + @", " + DarkPen + @", new Point(50, 50), 20, 20);";
+
+        public static string EllipseStroke =>
+            @"DrawEllipse(null, " + DarkPen + @", new Point(50, 50), 20, 20);";
 
         public static string Rectangle =>
-            @"DrawRectangle(" + DarkBrush + @", null, new Rect(25, 25, 40, 40));";
+            @"DrawRectangle(" + LightBrush + @", null, new Rect(25, 25, 40, 40));";
+
+        public static string RectangleWithStroke =>
+            @"DrawRectangle(" + LightBrush + @", " + DarkPen + @", new Rect(25, 25, 40, 40));";
+
+        public static string RectangleStroke =>
+           @"DrawRectangle(null, " + DarkPen + @", new Rect(25, 25, 40, 40));";
 
         public static string Line =>
             @"DrawLine(" + DarkPen + @", new Point(50, 50), new Point (100, 100));";
 
         public static string RoundedRectangle =>
-            @"DrawRoundedRectangle(" + DarkBrush + @", null, new Rect(25, 25, 40, 40), 5, 5);";
+            @"DrawRoundedRectangle(" + LightBrush + @", null, new Rect(25, 25, 40, 40), 5, 5);";
+
+        public static string RoundedRectangleWithStroke =>
+            @"DrawRoundedRectangle(" + LightBrush + @", " + DarkPen + @", new Rect(25, 25, 40, 40), 5, 5);";
+
+        public static string RoundedRectangleStroke =>
+            @"DrawRoundedRectangle(null, " + DarkPen + @", new Rect(25, 25, 40, 40), 5, 5);";
 
         public static string Text =>
             @"DrawText(new FormattedText(""Hello world!"", System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(""Arial""), 24, " +

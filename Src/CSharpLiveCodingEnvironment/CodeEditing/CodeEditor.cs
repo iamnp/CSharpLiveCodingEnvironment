@@ -819,6 +819,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             if (_lines[pos.Line].Length - 1 < pos.Column)
             {
                 pos.Column = _lines[pos.Line].Length - 1;
+                if (pos.Column < 0) pos.Column = 0;
             }
         }
 
@@ -905,13 +906,13 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 {
                     var len = _lines[_selection.End.Line - 1].Length;
                     Text = _text.Remove(pos - 2, 2);
-                    _selection.End.Line -= 1;
+                    if (_selection.End.Line != _lines.Length - 1) _selection.End.Line -= 1;
                     _selection.End.Column = len - 1;
                 }
                 else
                 {
                     Text = _text.Remove(pos - 1, 1);
-                    _selection.End.Column -= 1;
+                    if (_selection.End.Line != _lines.Length - 1) _selection.End.Column -= 1;
                 }
                 _selection.Start = _selection.End.Copy();
             }

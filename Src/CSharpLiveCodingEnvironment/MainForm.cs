@@ -322,29 +322,59 @@ namespace CSharpLiveCodingEnvironment
             }
         }
 
-        private void ellipseButton_Click(object sender, EventArgs e)
+        private void drawEllipsePictureBox_Click(object sender, EventArgs e)
         {
             codeEditor.ReplaceSelectedTextWith(CodeSnippets.Ellipse);
         }
 
-        private void rectangleButton_Click(object sender, EventArgs e)
+        private void drawRectPictureBox_Click(object sender, EventArgs e)
         {
             codeEditor.ReplaceSelectedTextWith(CodeSnippets.Rectangle);
         }
 
-        private void lineButton_Click(object sender, EventArgs e)
-        {
-            codeEditor.ReplaceSelectedTextWith(CodeSnippets.Line);
-        }
-
-        private void roundedRectangleButton_Click(object sender, EventArgs e)
+        private void drawRoundedRectPictureBox_Click(object sender, EventArgs e)
         {
             codeEditor.ReplaceSelectedTextWith(CodeSnippets.RoundedRectangle);
         }
 
-        private void textButton_Click(object sender, EventArgs e)
+        private void drawLinePictureBox_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.Line);
+        }
+
+        private void drawTextPictureBox_Click(object sender, EventArgs e)
         {
             codeEditor.ReplaceSelectedTextWith(CodeSnippets.Text);
+        }
+
+        private void drawEllipseWithStrokePictureBox_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.EllipseWithStroke);
+        }
+
+        private void drawRectWithStrokePictureBox_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.RectangleWithStroke);
+        }
+
+        private void drawRoundedRectWithStrokePictureBox_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.RoundedRectangleWithStroke);
+        }
+
+        private void drawEllipseStrokePictureBox_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.EllipseStroke);
+        }
+
+        private void drawRectStrokePictureBox_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.RectangleStroke);
+        }
+
+        private void drawRoundedRectStrokePictureBox_Click(object sender, EventArgs e)
+        {
+            codeEditor.ReplaceSelectedTextWith(CodeSnippets.RoundedRectangleStroke);
         }
     }
 }
