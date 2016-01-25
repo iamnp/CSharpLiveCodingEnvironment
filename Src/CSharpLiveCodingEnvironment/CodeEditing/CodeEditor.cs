@@ -32,7 +32,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             },
             new HighlightingRule
             {
-                Pattern = new Regex(@"(""[^""\n]*"")", RegexOptions.Compiled),
+                Pattern = new Regex(@"(""(?:\\""|[^""])*"")", RegexOptions.Compiled),
                 Color = Color.Green
             },
             new HighlightingRule
