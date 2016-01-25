@@ -27,7 +27,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         {
             new HighlightingRule
             {
-                Pattern = new Regex(@"(//.*)", RegexOptions.Compiled),
+                Pattern = new Regex(@"(\/\/.*)", RegexOptions.Compiled),
                 Color = Color.Green
             },
             new HighlightingRule
