@@ -553,7 +553,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 HorizontalScroll.Value = Math.Max(HorizontalScroll.Minimum, Math.Min(HorizontalScroll.Maximum, newValue));
             }
 
-            //aligns scrollbar if it is moved by mouse
+            // aligns scrollbar if it is moved by mouse
             AutoScrollMinSize -= new Size(1, 0);
             AutoScrollMinSize += new Size(1, 0);
 
