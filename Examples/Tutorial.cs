@@ -36,7 +36,7 @@ class Game
     DrawBall(dc);
   }
 
-  // Метод отрисовки ""следов"" от объектов, помечен атрибутом DrawTrackMethod,
+  // Метод отрисовки "следов" от объектов, помечен атрибутом DrawTrackMethod,
   // вызывается средой для рендеринга состояний игрового мира во время паузы.
   [DrawTrackMethod]
   void DrawBall(DrawingContext dc)
