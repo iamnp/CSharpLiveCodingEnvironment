@@ -11,13 +11,14 @@ namespace CSharpLiveCodingEnvironment
         {
             InitializeComponent();
 
-            CheckInfiniteLoops = checkBox2.Checked;
+            CheckInfiniteLoops = InfiniteLoopsCheckBox.Checked;
             UseTrackedInput = useTrackedInputCheckBox.Checked;
             TogglePauseOnQ = togglePauseOnQCheckBox.Checked;
             WaitAfterEachTick = waitAfterEachTIckCheckBox.Checked;
             WaitAfterEachTickMsec = (int) waitAfterEachTickNumericUpDown.Value;
             DesiredDt = 1000/(int) desiredFramerateNumericUpDown.Value;
             StoreLastFrames = (int) storeLastFramesNumericUpDown.Value;
+            InfiniteLoopsTimeout = (int) InfiniteLoopsNumericUpDown.Value;
         }
 
         public static SettingsForm Instance => _instance ?? (_instance = new SettingsForm());
@@ -29,6 +30,8 @@ namespace CSharpLiveCodingEnvironment
         public int DesiredDt { get; private set; }
         public int StoreLastFrames { get; private set; }
         public bool CheckInfiniteLoops { get; private set; }
+
+        public int InfiniteLoopsTimeout { get; private set; }
 
         public event EventHandler StoreLastFramesParamChanged;
 
@@ -55,7 +58,8 @@ namespace CSharpLiveCodingEnvironment
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            CheckInfiniteLoops = checkBox2.Checked;
+            CheckInfiniteLoops = InfiniteLoopsCheckBox.Checked;
+            InfiniteLoopsNumericUpDown.Enabled = InfiniteLoopsCheckBox.Checked;
         }
 
         private void storeLastFramesNumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -77,6 +81,11 @@ namespace CSharpLiveCodingEnvironment
         private void topMostCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             TopMost = topMostCheckBox.Checked;
+        }
+
+        private void InfiniteLoopsNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            InfiniteLoopsTimeout = (int) InfiniteLoopsNumericUpDown.Value;
         }
     }
 }

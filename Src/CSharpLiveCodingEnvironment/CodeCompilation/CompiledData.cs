@@ -8,7 +8,6 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
 {
     internal class CompiledData
     {
-        private const int Timeout = 45;
         public Action<DrawingContext> DrawDelegate;
         public List<Action<DrawingContext>> DrawTrackDelegates;
 
@@ -117,7 +116,7 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
                 }
             });
             t.Start();
-            if (!t.Join(Timeout))
+            if (!t.Join(SettingsForm.Instance.InfiniteLoopsTimeout))
             {
                 t.Abort();
                 res = false;

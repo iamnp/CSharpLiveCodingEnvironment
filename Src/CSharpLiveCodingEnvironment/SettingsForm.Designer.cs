@@ -35,14 +35,17 @@
             this.storeLastFramesLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.InfiniteLoopsCheckBox = new System.Windows.Forms.CheckBox();
             this.storeLastFramesNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.desiredFramerateNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.waitAfterEachTickNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.topMostCheckBox = new System.Windows.Forms.CheckBox();
+            this.InfiniteLoopsNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InfiniteLoopsLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.storeLastFramesNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.desiredFramerateNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waitAfterEachTickNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InfiniteLoopsNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // useTrackedInputCheckBox
@@ -112,22 +115,22 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(250, 88);
+            this.label2.Location = new System.Drawing.Point(250, 82);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 13);
             this.label2.TabIndex = 9;
             this.label2.Text = "шт";
             // 
-            // checkBox2
+            // InfiniteLoopsCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(12, 154);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(168, 17);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "Искать бесконечные циклы";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.InfiniteLoopsCheckBox.AutoSize = true;
+            this.InfiniteLoopsCheckBox.Location = new System.Drawing.Point(12, 154);
+            this.InfiniteLoopsCheckBox.Name = "InfiniteLoopsCheckBox";
+            this.InfiniteLoopsCheckBox.Size = new System.Drawing.Size(168, 17);
+            this.InfiniteLoopsCheckBox.TabIndex = 4;
+            this.InfiniteLoopsCheckBox.Text = "Искать бесконечные циклы";
+            this.InfiniteLoopsCheckBox.UseVisualStyleBackColor = true;
+            this.InfiniteLoopsCheckBox.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // storeLastFramesNumericUpDown
             // 
@@ -204,16 +207,51 @@
             this.topMostCheckBox.UseVisualStyleBackColor = true;
             this.topMostCheckBox.CheckedChanged += new System.EventHandler(this.topMostCheckBox_CheckedChanged);
             // 
+            // InfiniteLoopsNumericUpDown
+            // 
+            this.InfiniteLoopsNumericUpDown.Enabled = false;
+            this.InfiniteLoopsNumericUpDown.Location = new System.Drawing.Point(194, 153);
+            this.InfiniteLoopsNumericUpDown.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.InfiniteLoopsNumericUpDown.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.InfiniteLoopsNumericUpDown.Name = "InfiniteLoopsNumericUpDown";
+            this.InfiniteLoopsNumericUpDown.Size = new System.Drawing.Size(50, 20);
+            this.InfiniteLoopsNumericUpDown.TabIndex = 14;
+            this.InfiniteLoopsNumericUpDown.Value = new decimal(new int[] {
+            45,
+            0,
+            0,
+            0});
+            this.InfiniteLoopsNumericUpDown.ValueChanged += new System.EventHandler(this.InfiniteLoopsNumericUpDown_ValueChanged);
+            // 
+            // InfiniteLoopsLabel
+            // 
+            this.InfiniteLoopsLabel.AutoSize = true;
+            this.InfiniteLoopsLabel.Location = new System.Drawing.Point(250, 155);
+            this.InfiniteLoopsLabel.Name = "InfiniteLoopsLabel";
+            this.InfiniteLoopsLabel.Size = new System.Drawing.Size(21, 13);
+            this.InfiniteLoopsLabel.TabIndex = 15;
+            this.InfiniteLoopsLabel.Text = "мс";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(276, 174);
+            this.Controls.Add(this.InfiniteLoopsLabel);
+            this.Controls.Add(this.InfiniteLoopsNumericUpDown);
             this.Controls.Add(this.topMostCheckBox);
             this.Controls.Add(this.waitAfterEachTickNumericUpDown);
             this.Controls.Add(this.desiredFramerateNumericUpDown);
             this.Controls.Add(this.storeLastFramesNumericUpDown);
-            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.InfiniteLoopsCheckBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.storeLastFramesLabel);
@@ -231,6 +269,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.storeLastFramesNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.desiredFramerateNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.waitAfterEachTickNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InfiniteLoopsNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,10 +284,12 @@
         private System.Windows.Forms.Label storeLastFramesLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox InfiniteLoopsCheckBox;
         private System.Windows.Forms.NumericUpDown storeLastFramesNumericUpDown;
         private System.Windows.Forms.NumericUpDown desiredFramerateNumericUpDown;
         private System.Windows.Forms.NumericUpDown waitAfterEachTickNumericUpDown;
         private System.Windows.Forms.CheckBox topMostCheckBox;
+        private System.Windows.Forms.NumericUpDown InfiniteLoopsNumericUpDown;
+        private System.Windows.Forms.Label InfiniteLoopsLabel;
     }
 }
