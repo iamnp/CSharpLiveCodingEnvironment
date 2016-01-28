@@ -252,8 +252,11 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 }
 
                 // call draw delegate
-                GraphicsControl.Dispatcher.BeginInvoke(DispatcherPriority.Render,
-                    (MethodInvoker) GraphicsControl.InvalidateVisual);
+                if (!GraphicsControl.IsRendering)
+                {
+                    GraphicsControl.Dispatcher.BeginInvoke(DispatcherPriority.Render,
+                        (MethodInvoker) GraphicsControl.InvalidateVisual);
+                }
 
                 // wait
                 if (SettingsForm.Instance.WaitAfterEachTick)
