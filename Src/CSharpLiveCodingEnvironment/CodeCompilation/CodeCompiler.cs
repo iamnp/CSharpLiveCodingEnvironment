@@ -132,17 +132,17 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
                     {
                         foreach (var attr in methods[i].CustomAttributes)
                         {
-                            if (attr.AttributeType.Name == "InitMethod")
+                            if (attr.AttributeType.Name == "InitMethod" && IsInitMethodSignature(methods[i]))
                                 compiledData.InitDelegate =
                                     (Action) Delegate.CreateDelegate(typeof (Action), inst, methods[i]);
-                            if (attr.AttributeType.Name == "DrawMethod")
+                            if (attr.AttributeType.Name == "DrawMethod" && IsDrawMethodSignature(methods[i]))
                                 compiledData.DrawDelegate =
                                     (Action<DrawingContext>)
                                         Delegate.CreateDelegate(typeof (Action<DrawingContext>), inst, methods[i]);
-                            if (attr.AttributeType.Name == "DrawTrackMethod")
+                            if (attr.AttributeType.Name == "DrawTrackMethod" && IsDrawTrackMethodSignature(methods[i]))
                                 compiledData.DrawTrackDelegates.Add((Action<DrawingContext>)
                                     Delegate.CreateDelegate(typeof (Action<DrawingContext>), inst, methods[i]));
-                            if (attr.AttributeType.Name == "TickMethod")
+                            if (attr.AttributeType.Name == "TickMethod" && IsTickMethodSignature(methods[i]))
                                 compiledData.TickDelegate =
                                     (Action<double, Dictionary<char, bool>>)
                                         Delegate.CreateDelegate(typeof (Action<double, Dictionary<char, bool>>), inst,
@@ -183,6 +183,31 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
                     _pendingCode = null;
                 }
             }
+        }
+
+        private bool IsInitMethodSignature(MethodInfo m)
+        {
+            var p = m.GetParameters();
+            return m.ReturnType == typeof (void) && p.Length == 0;
+        }
+
+        private bool IsDrawMethodSignature(MethodInfo m)
+        {
+            var p = m.GetParameters();
+            return m.ReturnType == typeof (void) && p.Length == 1 && p[0].ParameterType == typeof (DrawingContext);
+        }
+
+        private bool IsDrawTrackMethodSignature(MethodInfo m)
+        {
+            var p = m.GetParameters();
+            return m.ReturnType == typeof (void) && p.Length == 1 && p[0].ParameterType == typeof (DrawingContext);
+        }
+
+        private bool IsTickMethodSignature(MethodInfo m)
+        {
+            var p = m.GetParameters();
+            return m.ReturnType == typeof (void) && p.Length == 2 && p[0].ParameterType == typeof (double)
+                   && p[1].ParameterType == typeof (Dictionary<char, bool>);
         }
     }
 }
