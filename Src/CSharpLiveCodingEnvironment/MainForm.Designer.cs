@@ -41,6 +41,7 @@ namespace CSharpLiveCodingEnvironment
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportPngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportGifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportExeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -160,14 +161,15 @@ namespace CSharpLiveCodingEnvironment
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportPngToolStripMenuItem,
-            this.exportGifToolStripMenuItem});
-            this.exportToolStripMenuItem.Enabled = false;
+            this.exportGifToolStripMenuItem,
+            this.exportExeToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Экспорт";
             // 
             // exportPngToolStripMenuItem
             // 
+            this.exportPngToolStripMenuItem.Enabled = false;
             this.exportPngToolStripMenuItem.Name = "exportPngToolStripMenuItem";
             this.exportPngToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.exportPngToolStripMenuItem.Text = "Текущего кадра в PNG";
@@ -175,10 +177,18 @@ namespace CSharpLiveCodingEnvironment
             // 
             // exportGifToolStripMenuItem
             // 
+            this.exportGifToolStripMenuItem.Enabled = false;
             this.exportGifToolStripMenuItem.Name = "exportGifToolStripMenuItem";
             this.exportGifToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.exportGifToolStripMenuItem.Text = "Сохраненных кадров в GIF";
             this.exportGifToolStripMenuItem.Click += new System.EventHandler(this.exportGifToolStripMenuItem_Click);
+            // 
+            // exportExeToolStripMenuItem
+            // 
+            this.exportExeToolStripMenuItem.Name = "exportExeToolStripMenuItem";
+            this.exportExeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.exportExeToolStripMenuItem.Text = "В исполняемый файл";
+            this.exportExeToolStripMenuItem.Click += new System.EventHandler(this.exportExeToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -487,6 +497,7 @@ namespace CSharpLiveCodingEnvironment
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportPngToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportGifToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportExeToolStripMenuItem;
     }
 }
 

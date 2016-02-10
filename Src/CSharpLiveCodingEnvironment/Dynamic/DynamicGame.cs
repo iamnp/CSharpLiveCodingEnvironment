@@ -318,7 +318,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
-        public byte[] GetSaveFramesGifBytes()
+        public byte[] GetStoredFramesGifBytes()
         {
             lock (_locker)
             {

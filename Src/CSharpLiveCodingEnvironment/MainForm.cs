@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -9,6 +10,8 @@ using System.Windows.Input;
 using CSharpLiveCodingEnvironment.CodeCompilation;
 using CSharpLiveCodingEnvironment.CodeEditing;
 using CSharpLiveCodingEnvironment.Dynamic;
+using Microsoft.CSharp;
+using CodeCompiler = CSharpLiveCodingEnvironment.CodeCompilation.CodeCompiler;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace CSharpLiveCodingEnvironment
@@ -156,14 +159,16 @@ namespace CSharpLiveCodingEnvironment
             _dynamicGame.Puase();
             _dynamicGame.NeedToSimulateTimelapseScene = true;
             pauseToolStripMenuItem.Text = "Продолжить";
-            exportToolStripMenuItem.Enabled = true;
+            exportPngToolStripMenuItem.Enabled = true;
+            exportGifToolStripMenuItem.Enabled = true;
             trackBar1.Visible = true;
         }
 
         private void SetResumedMode()
         {
             _dynamicGame.Resume();
-            exportToolStripMenuItem.Enabled = false;
+            exportPngToolStripMenuItem.Enabled = false;
+            exportGifToolStripMenuItem.Enabled = false;
             pauseToolStripMenuItem.Text = "Пауза";
             trackBar1.Visible = false;
         }
@@ -410,7 +415,7 @@ namespace CSharpLiveCodingEnvironment
                     {
                         try
                         {
-                            var gifBytes = _dynamicGame.GetSaveFramesGifBytes();
+                            var gifBytes = _dynamicGame.GetStoredFramesGifBytes();
                             File.WriteAllBytes(path, gifBytes);
                         }
                         catch
@@ -419,6 +424,53 @@ namespace CSharpLiveCodingEnvironment
                         }
                     });
                 }
+            }
+        }
+
+        private void exportExeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog {Filter = @"EXE files (*.exe)|*.exe"})
+            {
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    CompileStandaloneExecutable(dialog.FileName);
+                }
+            }
+        }
+
+        private void CompileStandaloneExecutable(string filePath)
+        {
+            var compilerParameters = new CompilerParameters
+            {
+                GenerateExecutable = true,
+                OutputAssembly = filePath,
+                CompilerOptions = "/target:winexe",
+                IncludeDebugInformation = false
+            };
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                var name = assembly.GetName().Name;
+                if (name == "PresentationFramework"
+                    || name == "WindowsBase"
+                    || name == "PresentationCore"
+                    || name == "System.Windows.Forms"
+                    || name == "System.Drawing"
+                    || name == "WindowsFormsIntegration"
+                    || name == "System.Xaml"
+                    || name == "System")
+                {
+                    compilerParameters.ReferencedAssemblies.Add(assembly.Location);
+                }
+            }
+
+            var results = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters,
+                CodeSnippets.GetStandaloneExecutableCode(SettingsForm.Instance.DesiredDt,
+                    SettingsForm.Instance.WaitAfterEachTick, SettingsForm.Instance.WaitAfterEachTickMsec),
+                $"{string.Join("\n", _codeCompiler.Header)}\n{codeEditor.Text}\n{string.Join("\n", _codeCompiler.Footer)}");
+            if (results.Errors.Count > 0)
+            {
+                MessageBox.Show("Произошла ошибка при сохранении файла!");
             }
         }
     }

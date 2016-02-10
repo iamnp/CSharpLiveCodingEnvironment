@@ -11,12 +11,38 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
 {
     internal class CodeCompiler
     {
+        private readonly CSharpCodeProvider _compiler = new CSharpCodeProvider();
         private readonly CompilerParameters _compilerParameters;
         private readonly object _locker = new object();
         private readonly SynchronizationContext _synchronizationContext;
         private Task _compilingTask;
         private string _pendingCode;
         private bool _saveState;
+
+        public string[] Footer =
+        {
+            "[AttributeUsage(AttributeTargets.Field)]",
+            "public class StateField : Attribute {}",
+            "[AttributeUsage(AttributeTargets.Method)]",
+            "public class InitMethod : Attribute {}",
+            "[AttributeUsage(AttributeTargets.Method)]",
+            "public class DrawMethod : Attribute {}",
+            "[AttributeUsage(AttributeTargets.Method)]",
+            "public class TickMethod : Attribute {}",
+            "[AttributeUsage(AttributeTargets.Method)]",
+            "public class DrawTrackMethod : Attribute {}",
+            "[AttributeUsage(AttributeTargets.Class)]",
+            "public class MainClass : Attribute {}"
+        };
+
+        public string[] Header =
+        {
+            "using System.Windows.Media;",
+            "using System.Windows;",
+            "using System.Windows.Media.Imaging;",
+            "using System.Collections.Generic;",
+            "using System;"
+        };
 
         public CodeCompiler(SynchronizationContext synchronizationContext)
         {
@@ -60,40 +86,15 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
 
         private void Compile(string code, bool saveState)
         {
-            string[] header =
-            {
-                "using System.Windows.Media;",
-                "using System.Windows;",
-                "using System.Windows.Media.Imaging;",
-                "using System.Collections.Generic;",
-                "using System;"
-            };
-
-            string[] footer =
-            {
-                "[AttributeUsage(AttributeTargets.Field)]",
-                "public class StateField : Attribute {}",
-                "[AttributeUsage(AttributeTargets.Method)]",
-                "public class InitMethod : Attribute {}",
-                "[AttributeUsage(AttributeTargets.Method)]",
-                "public class DrawMethod : Attribute {}",
-                "[AttributeUsage(AttributeTargets.Method)]",
-                "public class TickMethod : Attribute {}",
-                "[AttributeUsage(AttributeTargets.Method)]",
-                "public class DrawTrackMethod : Attribute {}",
-                "[AttributeUsage(AttributeTargets.Class)]",
-                "public class MainClass : Attribute {}"
-            };
-
-            var linesOffset = header.Length;
+            var linesOffset = Header.Length;
 
             var compiledSuccessfully = false;
             var compilationErrorOnLine = -1;
             string compilationErrorText = null;
 
-            string finalCode = $"{string.Join("\n", header)}\n{code}\n{string.Join("\n", footer)}";
+            string finalCode = $"{string.Join("\n", Header)}\n{code}\n{string.Join("\n", Footer)}";
 
-            var results = new CSharpCodeProvider().CompileAssemblyFromSource(_compilerParameters,
+            var results = _compiler.CompileAssemblyFromSource(_compilerParameters,
                 finalCode);
 
             if (results.Errors.Count == 0)
