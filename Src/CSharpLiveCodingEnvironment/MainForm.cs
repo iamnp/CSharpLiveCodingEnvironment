@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using CSharpLiveCodingEnvironment.CodeCompilation;
@@ -155,12 +156,14 @@ namespace CSharpLiveCodingEnvironment
             _dynamicGame.Puase();
             _dynamicGame.NeedToSimulateTimelapseScene = true;
             pauseToolStripMenuItem.Text = "Продолжить";
+            exportToolStripMenuItem.Enabled = true;
             trackBar1.Visible = true;
         }
 
         private void SetResumedMode()
         {
             _dynamicGame.Resume();
+            exportToolStripMenuItem.Enabled = false;
             pauseToolStripMenuItem.Text = "Пауза";
             trackBar1.Visible = false;
         }
@@ -375,6 +378,48 @@ namespace CSharpLiveCodingEnvironment
         private void drawRoundedRectStrokePictureBox_Click(object sender, EventArgs e)
         {
             codeEditor.ReplaceSelectedTextWith(CodeSnippets.RoundedRectangleStroke);
+        }
+
+        private void exportPngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog {Filter = @"PNG files (*.png)|*.png"})
+            {
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    try
+                    {
+                        var pngBytes = _dynamicGame.GetCurrentFramePngBytes();
+                        File.WriteAllBytes(dialog.FileName, pngBytes);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Произошла ошибка при сохранении файла!");
+                    }
+                }
+            }
+        }
+
+        private void exportGifToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog {Filter = @"GIF files (*.gif)|*.gif"})
+            {
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    var path = dialog.FileName;
+                    Task.Factory.StartNew(() =>
+                    {
+                        try
+                        {
+                            var gifBytes = _dynamicGame.GetSaveFramesGifBytes();
+                            File.WriteAllBytes(path, gifBytes);
+                        }
+                        catch
+                        {
+                            Invoke((MethodInvoker) (() => MessageBox.Show("Произошла ошибка при сохранении файла!")));
+                        }
+                    });
+                }
+            }
         }
     }
 }

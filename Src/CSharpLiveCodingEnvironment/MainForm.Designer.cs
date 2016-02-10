@@ -37,6 +37,10 @@ namespace CSharpLiveCodingEnvironment
             this.newFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportPngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportGifToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,6 +122,8 @@ namespace CSharpLiveCodingEnvironment
             this.newFileToolStripMenuItem,
             this.openFileToolStripMenuItem,
             this.saveFileToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.exportToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -127,33 +133,62 @@ namespace CSharpLiveCodingEnvironment
             // newFileToolStripMenuItem
             // 
             this.newFileToolStripMenuItem.Name = "newFileToolStripMenuItem";
-            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.newFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newFileToolStripMenuItem.Text = "Новый";
             this.newFileToolStripMenuItem.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
             // 
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openFileToolStripMenuItem.Text = "Открыть";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
             // saveFileToolStripMenuItem
             // 
             this.saveFileToolStripMenuItem.Name = "saveFileToolStripMenuItem";
-            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.saveFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveFileToolStripMenuItem.Text = "Сохранить";
             this.saveFileToolStripMenuItem.Click += new System.EventHandler(this.saveFileToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportPngToolStripMenuItem,
+            this.exportGifToolStripMenuItem});
+            this.exportToolStripMenuItem.Enabled = false;
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Text = "Экспорт";
+            // 
+            // exportPngToolStripMenuItem
+            // 
+            this.exportPngToolStripMenuItem.Name = "exportPngToolStripMenuItem";
+            this.exportPngToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.exportPngToolStripMenuItem.Text = "Текущего кадра в PNG";
+            this.exportPngToolStripMenuItem.Click += new System.EventHandler(this.exportPngToolStripMenuItem_Click);
+            // 
+            // exportGifToolStripMenuItem
+            // 
+            this.exportGifToolStripMenuItem.Name = "exportGifToolStripMenuItem";
+            this.exportGifToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.exportGifToolStripMenuItem.Text = "Сохраненных кадров в GIF";
+            this.exportGifToolStripMenuItem.Click += new System.EventHandler(this.exportGifToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(129, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.quitToolStripMenuItem.Text = "Выход";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
@@ -448,6 +483,10 @@ namespace CSharpLiveCodingEnvironment
         private System.Windows.Forms.PictureBox drawRoundedRectStrokePictureBox;
         private System.Windows.Forms.PictureBox drawLinePictureBox;
         private System.Windows.Forms.PictureBox drawTextPictureBox;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportPngToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportGifToolStripMenuItem;
     }
 }
 
