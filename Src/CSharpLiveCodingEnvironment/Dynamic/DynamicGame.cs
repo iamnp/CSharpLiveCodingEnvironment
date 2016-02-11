@@ -340,7 +340,6 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 }
                 CompiledData.SetGameState(state);
 
-                var metadataPtr = -1;
                 byte[] data;
                 using (var stream = new MemoryStream())
                 {
@@ -348,6 +347,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     data = stream.ToArray();
                 }
 
+                // Locate the right location where to insert the metadata in the binary
+                // This will be just before the first label 0x0021F9 (Graphic Control Extension)
+                var metadataPtr = -1;
                 for (var i = 0; i < data.Length - 2; ++i)
                 {
                     if (data[i] == 0)
@@ -363,11 +365,12 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     }
                 }
 
+                // Set METADATA Repeat
+                // Add an Application Extension Netscape2.0
                 var appExt = new byte[]
                 {
                     0x21, 0xFF, 0xB, 0x4E, 0x45, 0x54, 0x53, 0x43, 0x41, 0x50, 0x45, 0x32, 0x2E, 0x30, 0x3, 0x1, 0x0,
-                    0x0,
-                    0x0
+                    0x0, 0x0
                 };
                 var temp = new byte[data.Length + appExt.Length];
                 Array.Copy(data, temp, metadataPtr);
@@ -375,6 +378,8 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 Array.Copy(data, metadataPtr + 1, temp, metadataPtr + appExt.Length + 1, data.Length - metadataPtr - 1);
                 data = temp;
 
+                // Set METADATA frameRate
+                // Sets the third and fourth byte of each Graphic Control Extension (5 bytes from each label 0x0021F9)
                 for (var x = 0; x < data.Length - 3; ++x)
                 {
                     if (data[x] == 0)
@@ -385,6 +390,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                             {
                                 if (data[x + 3] == 4)
                                 {
+                                    // word, little endian, the hundredths of second to show this frame
                                     var delay = BitConverter.GetBytes(Math.Max(SettingsForm.Instance.DesiredDt/10, 2));
                                     data[x + 5] = delay[0];
                                     data[x + 6] = delay[1];
