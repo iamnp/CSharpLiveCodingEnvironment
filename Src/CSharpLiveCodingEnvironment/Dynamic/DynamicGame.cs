@@ -55,7 +55,10 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
         public void ReplaceCompiledData(CompiledData cd)
         {
-            _compiledDataToBeReplaced = cd;
+            lock (_locker)
+            {
+                _compiledDataToBeReplaced = cd;
+            }
         }
 
         public bool TickDelegateExists()
@@ -117,7 +120,10 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
         public void SetInput(char key, bool v)
         {
-            _input[key] = v;
+            lock (_locker)
+            {
+                _input[key] = v;
+            }
         }
 
         private bool FireFieldsChangedEvent()
@@ -248,7 +254,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                         }
                         else
                         {
-                            _dynamicGameSimulator.TakeSnapshot(new Dictionary<char, bool>(localInput), dt,
+                            _dynamicGameSimulator.TakeSnapshot(localInput, dt,
                                 SettingsForm.Instance.StoreLastFrames);
                         }
                     }
