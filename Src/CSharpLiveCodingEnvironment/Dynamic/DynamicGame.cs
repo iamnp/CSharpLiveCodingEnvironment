@@ -103,8 +103,10 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         public void Stop()
         {
             _evExit.Set();
-            _sceneLoopTask.Wait();
-            _evExit.Close();
+
+            // causes deadlock on form closing
+            //_sceneLoopTask.Wait();
+            //_evExit.Close();
         }
 
         public void Puase()
