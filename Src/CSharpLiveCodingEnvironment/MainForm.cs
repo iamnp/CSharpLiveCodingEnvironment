@@ -132,7 +132,7 @@ namespace CSharpLiveCodingEnvironment
             codeEditor.RemoveAllMarkers();
             if (_dynamicGame.Paused)
             {
-                _dynamicGame.NeedToSimulateTimelapseScene = true;
+                _dynamicGame.SetNeedToSimulateTimelapseScene();
             }
         }
 
@@ -157,7 +157,6 @@ namespace CSharpLiveCodingEnvironment
         private void SetPausedMode()
         {
             _dynamicGame.Puase();
-            _dynamicGame.NeedToSimulateTimelapseScene = true;
             pauseToolStripMenuItem.Text = "Продолжить";
             exportPngToolStripMenuItem.Enabled = true;
             exportGifToolStripMenuItem.Enabled = true;
