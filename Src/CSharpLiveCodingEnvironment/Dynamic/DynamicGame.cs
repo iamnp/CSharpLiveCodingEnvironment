@@ -27,10 +27,10 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         private CompiledData _compiledDataToBeReplaced;
 
         private bool _justPaused;
+        private bool _needToSimulateTimelapseScene;
 
         private Task _sceneLoopTask;
         public int CurrentTrackBarValue;
-        private bool _needToSimulateTimelapseScene;
 
         public DynamicGame(GraphicsControl g, ToolStripStatusLabel logLabel)
         {
@@ -40,7 +40,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
             for (int i = 'A'; i <= 'Z'; i += 1)
             {
-                _input[(char)i] = false;
+                _input[(char) i] = false;
             }
             _logLabel = logLabel;
         }
@@ -170,49 +170,49 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             fieldsChangedStopwacth.Start();
             while (!_evExit.WaitOne(SettingsForm.Instance.DesiredDt))
             {
-                bool justPaused;
-                bool paused;
-                bool needToSimulateTimelapseScene;
-                Dictionary<char, bool> input;
-                CompiledData compiledDataToBeReplaced;
+                // copy values to local variables in case they change during game tick
+                bool justPausedLocal;
+                bool pausedLocal;
+                bool needToSimulateTimelapseSceneLocal;
+                Dictionary<char, bool> inputLocal;
+                CompiledData compiledDataToBeReplacedLocal;
+                int currentTrackBarValueLocal;
                 lock (_locker)
                 {
-                    justPaused = _justPaused;
+                    justPausedLocal = _justPaused;
                     _justPaused = false;
-                    paused = Paused;
-                    needToSimulateTimelapseScene = _needToSimulateTimelapseScene;
+                    pausedLocal = Paused;
+                    needToSimulateTimelapseSceneLocal = _needToSimulateTimelapseScene;
                     _needToSimulateTimelapseScene = false;
-                    input = new Dictionary<char, bool>(_input);
-                    compiledDataToBeReplaced = _compiledDataToBeReplaced;
+                    inputLocal = new Dictionary<char, bool>(_input);
+                    compiledDataToBeReplacedLocal = _compiledDataToBeReplaced;
                     _compiledDataToBeReplaced = null;
+                    currentTrackBarValueLocal = CurrentTrackBarValue;
                 }
                 gameTickStopwatch.Restart();
 
-                // copy values to local variables in case they change during game tick
-                var localCurrentTrackBarValue = CurrentTrackBarValue;
-
                 // react to StoreLastFrames value change in pause mode
-                if (paused && _dynamicGameSimulator.Snapshots.Count != SettingsForm.Instance.StoreLastFrames)
+                if (pausedLocal && _dynamicGameSimulator.Snapshots.Count != SettingsForm.Instance.StoreLastFrames)
                 {
                     if (_dynamicGameSimulator.Snapshots.Count > SettingsForm.Instance.StoreLastFrames)
                     {
                         var count = _dynamicGameSimulator.Snapshots.Count - SettingsForm.Instance.StoreLastFrames;
                         _dynamicGameSimulator.RemoveSnapshotsFromEnd(count);
-                        localCurrentTrackBarValue = Math.Min(CurrentTrackBarValue,
+                        currentTrackBarValueLocal = Math.Min(currentTrackBarValueLocal,
                             _dynamicGameSimulator.Snapshots.Count);
-                        CurrentTrackBarValue = localCurrentTrackBarValue;
+                        CurrentTrackBarValue = currentTrackBarValueLocal;
                     }
                     else
                     {
                         var count = SettingsForm.Instance.StoreLastFrames - _dynamicGameSimulator.Snapshots.Count;
-                        if (justPaused)
+                        if (justPausedLocal)
                         {
-                            localCurrentTrackBarValue = _dynamicGameSimulator.Snapshots.Count;
-                            CurrentTrackBarValue = localCurrentTrackBarValue;
+                            currentTrackBarValueLocal = _dynamicGameSimulator.Snapshots.Count;
+                            CurrentTrackBarValue = currentTrackBarValueLocal;
                         }
                         _dynamicGameSimulator.AddDummySnapshots(count);
                         _dynamicGameSimulator.SimulateGame(_dynamicGameSimulator.Snapshots.Count - count - 1);
-                        if (justPaused)
+                        if (justPausedLocal)
                         {
                             CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
                         }
@@ -221,30 +221,30 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 }
 
                 // perform hot code swapping
-                if (compiledDataToBeReplaced != null)
+                if (compiledDataToBeReplacedLocal != null)
                 {
                     var canGoOn = true;
                     if (SettingsForm.Instance.CheckInfiniteLoops)
                     {
-                        var state = compiledDataToBeReplaced.DumpGameState();
-                        canGoOn = compiledDataToBeReplaced.CheckWhileTrue(16, input);
-                        compiledDataToBeReplaced.SetGameState(state);
+                        var state = compiledDataToBeReplacedLocal.DumpGameState();
+                        canGoOn = compiledDataToBeReplacedLocal.CheckWhileTrue(16, inputLocal);
+                        compiledDataToBeReplacedLocal.SetGameState(state);
                     }
                     if (canGoOn)
                     {
-                        if (compiledDataToBeReplaced.NeedToSaveState)
+                        if (compiledDataToBeReplacedLocal.NeedToSaveState)
                         {
                             var state = CompiledData.DumpGameState();
-                            CompiledData = compiledDataToBeReplaced;
+                            CompiledData = compiledDataToBeReplacedLocal;
                             CompiledData.SetGameState(state);
                         }
                         else
                         {
-                            CompiledData = compiledDataToBeReplaced;
+                            CompiledData = compiledDataToBeReplacedLocal;
                             CompiledData.TryInvokeInitDelegate();
                             Paused = false;
-                            paused = false;
-                            needToSimulateTimelapseScene = false;
+                            pausedLocal = false;
+                            needToSimulateTimelapseSceneLocal = false;
                             _dynamicGameSimulator.RemoveSnapshotsFromEnd(_dynamicGameSimulator.Snapshots.Count);
                             PausedChanged?.Invoke(this, EventArgs.Empty);
                         }
@@ -252,38 +252,38 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 }
 
                 // simulate game
-                if (needToSimulateTimelapseScene)
+                if (needToSimulateTimelapseSceneLocal)
                 {
-                    _dynamicGameSimulator.SimulateGame(localCurrentTrackBarValue - 1);
+                    _dynamicGameSimulator.SimulateGame(currentTrackBarValueLocal - 1);
                 }
 
                 // call move delegate
                 dtStopwatch.Stop();
-                double dt = 1000.0 * dtStopwatch.ElapsedTicks / Stopwatch.Frequency;
-                var b = localCurrentTrackBarValue < _dynamicGameSimulator.Snapshots.Count && !paused;
-                MoveScene(b ? _dynamicGameSimulator.Snapshots[localCurrentTrackBarValue].Dt : dt,
+                var dt = 1000.0*dtStopwatch.ElapsedTicks/Stopwatch.Frequency;
+                var b = currentTrackBarValueLocal < _dynamicGameSimulator.Snapshots.Count && !pausedLocal;
+                MoveScene(b ? _dynamicGameSimulator.Snapshots[currentTrackBarValueLocal].Dt : dt,
                     b && SettingsForm.Instance.UseTrackedInput
-                        ? _dynamicGameSimulator.Snapshots[localCurrentTrackBarValue].Input
-                        : input, localCurrentTrackBarValue - 1);
+                        ? _dynamicGameSimulator.Snapshots[currentTrackBarValueLocal].Input
+                        : inputLocal, currentTrackBarValueLocal - 1);
                 dtStopwatch.Restart();
 
                 // take snapshot
-                if (!paused)
+                if (!pausedLocal)
                 {
-                    if (localCurrentTrackBarValue < _dynamicGameSimulator.Snapshots.Count)
+                    if (currentTrackBarValueLocal < _dynamicGameSimulator.Snapshots.Count)
                     {
-                        CurrentTrackBarValue = localCurrentTrackBarValue + 1;
+                        CurrentTrackBarValue = currentTrackBarValueLocal + 1;
                         CurrentTrackBarValueChanged?.Invoke(this, EventArgs.Empty);
                     }
                     else
                     {
-                        _dynamicGameSimulator.TakeSnapshot(input, dt,
+                        _dynamicGameSimulator.TakeSnapshot(inputLocal, dt,
                             SettingsForm.Instance.StoreLastFrames);
                     }
                 }
 
                 // render TimelapseScene
-                if (needToSimulateTimelapseScene)
+                if (needToSimulateTimelapseSceneLocal)
                 {
                     GraphicsControl.Dispatcher.Invoke(_dynamicGameSimulator.RenderTimelapseScene);
                 }
@@ -292,7 +292,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 if (!GraphicsControl.IsRendering)
                 {
                     GraphicsControl.Dispatcher.BeginInvoke(DispatcherPriority.Render,
-                        (MethodInvoker)GraphicsControl.InvalidateVisual);
+                        (MethodInvoker) GraphicsControl.InvalidateVisual);
                 }
 
                 // fire FieldsChanged event
@@ -301,7 +301,6 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                     fieldsChangedStopwacth.Restart();
                     immediateFieldsChanged = !FireFieldsChangedEvent();
                 }
-
 
                 // wait
                 if (SettingsForm.Instance.WaitAfterEachTick)
@@ -314,17 +313,17 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 gameTickStopwatch.Stop();
 
                 // log
-                if (ii++ % 40 == 0)
+                if (ii++%40 == 0)
                 {
-                    _logLabel.Owner.BeginInvoke((MethodInvoker)(() => _logLabel.Text =
-                       $"GameTick = {1000.0 * gameTickStopwatch.ElapsedTicks / Stopwatch.Frequency:F3}; dt = {dt:F3}"));
+                    _logLabel.Owner.BeginInvoke((MethodInvoker) (() => _logLabel.Text =
+                        $"GameTick = {1000.0*gameTickStopwatch.ElapsedTicks/Stopwatch.Frequency:F3}; dt = {dt:F3}"));
                 }
             }
         }
 
         public byte[] GetCurrentFramePngBytes()
         {
-            var rtb = new RenderTargetBitmap((int)GraphicsControl.ActualWidth, (int)GraphicsControl.ActualHeight,
+            var rtb = new RenderTargetBitmap((int) GraphicsControl.ActualWidth, (int) GraphicsControl.ActualHeight,
                 96,
                 96, PixelFormats.Default);
 
@@ -351,8 +350,8 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             var state = CompiledData.DumpGameState();
             for (var i = 0; i < _dynamicGameSimulator.Snapshots.Count; ++i)
             {
-                var rtb = new RenderTargetBitmap((int)GraphicsControl.ActualWidth,
-                    (int)GraphicsControl.ActualHeight, 96, 96, PixelFormats.Default);
+                var rtb = new RenderTargetBitmap((int) GraphicsControl.ActualWidth,
+                    (int) GraphicsControl.ActualHeight, 96, 96, PixelFormats.Default);
                 var dv = new DrawingVisual();
                 CompiledData.SetGameState(_dynamicGameSimulator.Snapshots[i].State);
                 using (var dc = dv.RenderOpen())
@@ -393,8 +392,8 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             // Add an Application Extension Netscape2.0
             var appExt = new byte[]
             {
-                    0x21, 0xFF, 0xB, 0x4E, 0x45, 0x54, 0x53, 0x43, 0x41, 0x50, 0x45, 0x32, 0x2E, 0x30, 0x3, 0x1, 0x0,
-                    0x0, 0x0
+                0x21, 0xFF, 0xB, 0x4E, 0x45, 0x54, 0x53, 0x43, 0x41, 0x50, 0x45, 0x32, 0x2E, 0x30, 0x3, 0x1, 0x0,
+                0x0, 0x0
             };
             var temp = new byte[data.Length + appExt.Length];
             Array.Copy(data, temp, metadataPtr);
@@ -415,7 +414,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                             if (data[x + 3] == 4)
                             {
                                 // word, little endian, the hundredths of second to show this frame
-                                var delay = BitConverter.GetBytes(Math.Max(SettingsForm.Instance.DesiredDt / 10, 2));
+                                var delay = BitConverter.GetBytes(Math.Max(SettingsForm.Instance.DesiredDt/10, 2));
                                 data[x + 5] = delay[0];
                                 data[x + 6] = delay[1];
                             }
