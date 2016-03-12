@@ -1174,7 +1174,7 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 if (_markers[i].Line >= firstLine && _markers[i].Line <= lastLine)
                 {
                     g.FillEllipse(new SolidBrush(_markers[i].Color), 2,
-                        shiftY%_font.Height + (_markers[i].Line - 1 - firstLine)*_font.Height, MarkerSize,
+                        shiftY%_font.Height + (_markers[i].Line - 1 - firstLine)*_font.Height + _font.Height/2 - MarkerSize/2, MarkerSize,
                         MarkerSize);
                 }
             }
