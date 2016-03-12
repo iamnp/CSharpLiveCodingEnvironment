@@ -12,10 +12,10 @@ class Game
 
   [DrawMethod]
   void DrawScene(DrawingContext dc) {
-    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(255, 135, 206, 235)), null, new Rect(0, 0, 500, 500));
+    dc.Rect(Color.FromArgb(255, 135, 206, 235), 0, 0, 500, 500);
 
     int sunX = 436, sunY = 43, sunR = 60;
-    dc.DrawEllipse(Brushes.Yellow, null, new Point(sunX, sunY), sunR, sunR);
+    dc.Ellipse(Colors.Yellow, sunX, sunY, sunR, sunR);
     int innerW = 10, outerW = 80;
     var beam = GetBeam(sunX - innerW/2, sunY, innerW, outerW, 216);
     var beams = 10;

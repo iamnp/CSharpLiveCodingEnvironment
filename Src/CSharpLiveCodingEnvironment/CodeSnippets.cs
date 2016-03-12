@@ -2,12 +2,8 @@
 {
     internal static class CodeSnippets
     {
-        private const string DarkColor = @"Color.FromArgb(255, 100, 100, 100)";
-        private const string DarkBrush = @"new SolidColorBrush(" + DarkColor + @")";
-        private const string DarkPen = @"new Pen(" + DarkBrush + @", 3)";
-
-        private const string LightColor = @"Color.FromArgb(255, 200, 200, 200)";
-        private const string LightBrush = @"new SolidColorBrush(" + LightColor + @")";
+        private const string DarkColor = @"Colors.Gray";
+        private const string LightColor = @"Colors.LightGray";
 
         public static string HelloWorld = @"[MainClass]
 class Game
@@ -43,38 +39,37 @@ class Game
 }";
 
         public static string Ellipse =>
-            @"DrawEllipse(" + LightBrush + @", null, new Point(50, 50), 20, 20);";
+            @"Ellipse(" + LightColor + @", 50, 50, 20, 20);";
 
         public static string EllipseWithStroke =>
-            @"DrawEllipse(" + LightBrush + @", " + DarkPen + @", new Point(50, 50), 20, 20);";
+            @"Ellipse(" + LightColor + @", " + DarkColor + @", 3, 50, 50, 20, 20);";
 
         public static string EllipseStroke =>
-            @"DrawEllipse(null, " + DarkPen + @", new Point(50, 50), 20, 20);";
+            @"Ellipse(" + DarkColor + @", 3, 50, 50, 20, 20);";
 
         public static string Rectangle =>
-            @"DrawRectangle(" + LightBrush + @", null, new Rect(25, 25, 40, 40));";
+            @"Rect(" + LightColor + @", 25, 25, 40, 40);";
 
         public static string RectangleWithStroke =>
-            @"DrawRectangle(" + LightBrush + @", " + DarkPen + @", new Rect(25, 25, 40, 40));";
+            @"Rect(" + LightColor + @", " + DarkColor + @", 3, 25, 25, 40, 40);";
 
         public static string RectangleStroke =>
-            @"DrawRectangle(null, " + DarkPen + @", new Rect(25, 25, 40, 40));";
+            @"Rect(" + DarkColor + @", 3, 25, 25, 40, 40);";
 
         public static string Line =>
-            @"DrawLine(" + DarkPen + @", new Point(50, 50), new Point (100, 100));";
+            @"Line(" + DarkColor + @", 50, 50, 100, 100);";
 
         public static string RoundedRectangle =>
-            @"DrawRoundedRectangle(" + LightBrush + @", null, new Rect(25, 25, 40, 40), 5, 5);";
+            @"RoundRect(" + LightColor + @", 25, 25, 40, 40, 5, 5);";
 
         public static string RoundedRectangleWithStroke =>
-            @"DrawRoundedRectangle(" + LightBrush + @", " + DarkPen + @", new Rect(25, 25, 40, 40), 5, 5);";
+            @"RoundRect(" + LightColor + @", " + DarkColor + @", 3, 25, 25, 40, 40, 5, 5);";
 
         public static string RoundedRectangleStroke =>
-            @"DrawRoundedRectangle(null, " + DarkPen + @", new Rect(25, 25, 40, 40), 5, 5);";
+            @"RoundRect(" + DarkColor + @", 3, 25, 25, 40, 40, 5, 5);";
 
         public static string Text =>
-            @"DrawText(new FormattedText(""Hello world!"", System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(""Arial""), 24, " +
-            DarkBrush + @"), new Point(25, 25));";
+            @"Text(" + DarkColor + @", ""Hello world!"", 25, 50, 50);";
 
         public static string GetStandaloneExecutableCode(int desiredDt, bool waitAfterEachTick, int waitAfterEachTickMs)
         {

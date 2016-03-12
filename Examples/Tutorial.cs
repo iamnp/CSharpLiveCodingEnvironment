@@ -41,8 +41,8 @@ class Game
   [DrawTrackMethod]
   void DrawBall(DrawingContext dc)
   {
-    dc.DrawEllipse(Brushes.Black, null, new Point(x, y), 10, 10);
-    dc.DrawEllipse(Brushes.Black, null, new Point(a, y + 50), 10, 10);
+    dc.Ellipse(Colors.Black, x, y, 10, 10);
+    dc.Ellipse(Colors.Black, a, y + 50, 10, 10);
   }
 
   // Любые методы.

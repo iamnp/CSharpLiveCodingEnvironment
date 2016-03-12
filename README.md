@@ -6,7 +6,7 @@ The idea of the project is based on Bret Victor's talk 'Inventing on Principle' 
 
 TODOs
 ----
- - WPF drawing methods wrappers
+ - Add Zoom on Ctrl + Mouse Wheel
  - Add xml comments
 
 License

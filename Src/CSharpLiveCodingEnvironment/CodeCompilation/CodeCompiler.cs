@@ -44,6 +44,56 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             "using System;"
         };
 
+        public string[] WpfWrapper =
+        {
+            "static class __WPFWrapper",
+            "{",
+            "  public static void Ellipse(this DrawingContext dc, Color c, double x, double y, double w, double h) {",
+            "    dc.DrawEllipse(new SolidColorBrush(c), null, new Point(x, y), w, h);",
+            "  }",
+            "",
+            "  public static void Ellipse(this DrawingContext dc, Color c, Color c2, double stroke, double x, double y, double w, double h) {",
+            "    dc.DrawEllipse(new SolidColorBrush(c), new Pen(new SolidColorBrush(c2), stroke), new Point(x, y), w, h);",
+            "  }",
+            "",
+            "  public static void Ellipse(this DrawingContext dc, Color c2, double stroke, double x, double y, double w, double h) {",
+            "    dc.DrawEllipse(null, new Pen(new SolidColorBrush(c2), stroke), new Point(x, y), w, h);",
+            "  }",
+            "",
+            "  public static void Rect(this DrawingContext dc, Color c, double x, double y, double w, double h) {",
+            "    dc.DrawRectangle(new SolidColorBrush(c), null, new Rect(x, y, w, h));",
+            "  }",
+            "",
+            "  public static void Rect(this DrawingContext dc, Color c, Color c2, double stroke, double x, double y, double w, double h) {",
+            "    dc.DrawRectangle(new SolidColorBrush(c), new Pen(new SolidColorBrush(c2), stroke), new Rect(x, y, w, h));",
+            "  }",
+            "",
+            "  public static void Rect(this DrawingContext dc, Color c2, double stroke, double x, double y, double w, double h) {",
+            "    dc.DrawRectangle(null, new Pen(new SolidColorBrush(c2), stroke), new Rect(x, y, w, h));",
+            "  }",
+            "",
+            "  public static void RoundRect(this DrawingContext dc, Color c, double x, double y, double w, double h, double rx, double ry) {",
+            "    dc.DrawRoundedRectangle(new SolidColorBrush(c), null, new Rect(x, y, w, h), rx, ry);",
+            "  }",
+            "",
+            "  public static void RoundRect(this DrawingContext dc, Color c, Color c2, double stroke, double x, double y, double w, double h, double rx, double ry) {",
+            "    dc.DrawRoundedRectangle(new SolidColorBrush(c), new Pen(new SolidColorBrush(c2), stroke), new Rect(x, y, w, h), rx, ry);",
+            "  }",
+            "",
+            "  public static void RoundRect(this DrawingContext dc, Color c2, double stroke, double x, double y, double w, double h, double rx, double ry) {",
+            "    dc.DrawRoundedRectangle(null, new Pen(new SolidColorBrush(c2), stroke), new Rect(x, y, w, h), rx, ry);",
+            "  }",
+            "",
+            "  public static void Line(this DrawingContext dc, Color c, double x1, double y1, double x2, double y2) {",
+            "    dc.DrawLine(new Pen(new SolidColorBrush(c), 3), new Point(x1, y1), new Point (x2, y2));",
+            "  }",
+            "",
+            "  public static void Text(this DrawingContext dc, Color c, string text, double size, double x, double y) {",
+            "    dc.DrawText(new FormattedText(text, System.Globalization.CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(\"Arial\"), size, new SolidColorBrush(c)), new Point(x, y));",
+            "  }",
+            "}"
+        };
+
         public CodeCompiler(SynchronizationContext synchronizationContext)
         {
             _synchronizationContext = synchronizationContext;
@@ -92,7 +142,8 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             var compilationErrorOnLine = -1;
             string compilationErrorText = null;
 
-            string finalCode = $"{string.Join("\n", Header)}\n{code}\n{string.Join("\n", Footer)}";
+            string finalCode =
+                $"{string.Join("\n", Header)}\n{code}\n{string.Join("\n", Footer)}\n{string.Join("\n", WpfWrapper)}";
 
             var results = _compiler.CompileAssemblyFromSource(_compilerParameters,
                 finalCode);

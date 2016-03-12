@@ -95,7 +95,7 @@ class Game
 
   [DrawMethod]
   void DrawScene(DrawingContext dc) {
-    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(70, 0, 255, 255)), null, new Rect(0, 0, 500, 500));
+    dc.Rect(Color.FromArgb(70, 0, 255, 255), 0, 0, 500, 500);
     DrawSun(dc);
     DrawBall(dc);
     DrawBlocks(dc);
@@ -103,18 +103,18 @@ class Game
 
   [DrawTrackMethod]
   void DrawBall(DrawingContext dc) {
-    dc.DrawEllipse(Brushes.Black, null, new Point((int)ballX, (int)ballY), ballSize, ballSize);
+    dc.Ellipse(Colors.Black, ballX, ballY, ballSize, ballSize);
   }
 
   void DrawSun(DrawingContext dc) {
-    dc.DrawEllipse(Brushes.Yellow, null, new Point((int)sunX, 50), 40, 40);
+    dc.Ellipse(Colors.Yellow, sunX, 50, 40, 40);
   }
 
   void DrawBlocks(DrawingContext dc) {
     for (int i = 0; i < blockCount; ++i) {
       for (int j = 0; j < blockCount; ++j) {
         if (blocks[i, j] == 1)
-          dc.DrawRectangle(Brushes.Green, null, new Rect(i * blockSize, j * blockSize, blockSize, blockSize));
+          dc.Rect(Colors.Green, i * blockSize, j * blockSize, blockSize, blockSize);
       }
     }
   }
