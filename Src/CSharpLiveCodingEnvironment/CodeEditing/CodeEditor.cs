@@ -21,8 +21,6 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         private const int ManipulatorWidth = 200;
         private const int MarkerSize = 14;
 
-        private readonly Font _font = new Font("Consolas", 10f, FontStyle.Regular, GraphicsUnit.Point);
-
         private readonly HighlightingRule[] _highlightingRules =
         {
             new HighlightingRule
@@ -58,6 +56,8 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         private bool _caretVisible;
         private float _charWidth = -1;
         private int _decimalPlacesAfterPoint;
+
+        private Font _font = new Font("Consolas", 10f, FontStyle.Regular, GraphicsUnit.Point);
         private int _initialMouseXPos;
         private double _initialValue;
         private Keys _lastModifiers;
@@ -621,8 +621,19 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             Invalidate();
-            if (e.Delta > 0) ScrollUp(e.Delta/WheelDelta*LinesPerScroll);
-            else ScrollDown(-e.Delta/WheelDelta*LinesPerScroll);
+            if ((_lastModifiers & Keys.Control) == Keys.Control)
+            {
+                var newSize = _font.SizeInPoints + 1f*Math.Sign(e.Delta);
+                if (newSize < 6) newSize = 6;
+                if (newSize > 24) newSize = 24;
+                _font = new Font("Consolas", newSize, FontStyle.Regular, GraphicsUnit.Point);
+                _needToSetLayoutSize = true;
+            }
+            else
+            {
+                if (e.Delta > 0) ScrollUp(e.Delta/WheelDelta*LinesPerScroll);
+                else ScrollDown(-e.Delta/WheelDelta*LinesPerScroll);
+            }
         }
 
         #endregion
@@ -1014,14 +1025,14 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (_charWidth < 0)
+            if (_needToSetLayoutSize)
             {
                 _charWidth =
                     e.Graphics.MeasureString("a", _font, new PointF(0, 0), StringFormat.GenericTypographic).Width;
                 HorizontalScroll.SmallChange = (int) _charWidth + 1;
-            }
-            if (_needToSetLayoutSize)
-            {
+                WinApi.DestroyCaret();
+                WinApi.CreateCaret(Handle, 0, 1, _font.Height);
+                PosCaret();
                 SetLayoutSize();
                 _needToSetLayoutSize = false;
             }

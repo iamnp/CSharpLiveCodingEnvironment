@@ -6,7 +6,7 @@ The idea of the project is based on Bret Victor's talk 'Inventing on Principle' 
 
 TODOs
 ----
- - Add Zoom on Ctrl + Mouse Wheel
+ - Fix "Info" menu item
  - Add xml comments
 
 License
