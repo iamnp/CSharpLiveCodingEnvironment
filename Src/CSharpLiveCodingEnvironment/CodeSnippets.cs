@@ -24,17 +24,15 @@ class Game
 
   [DrawMethod]
   void DrawScene(DrawingContext dc) {
-    dc.DrawRectangle(Brushes.White, null, new Rect(0, 0, 500, 500));
+    dc.Rect(Colors.White, 0, 0, 500, 500);
     
     DrawCircle(dc);
     
-    dc.DrawRectangle(new SolidColorBrush(Color.FromArgb(255, 100, 100, 250)),
-      null, new Rect(x - 25, 300, 50, 50));
+    dc.Rect(Color.FromArgb(255, 100, 100, 250), x - 25, 300, 50, 50);
   }
 
   void DrawCircle(DrawingContext dc) {
-    dc.DrawEllipse(new SolidColorBrush(Color.FromArgb(255, 120, 120, 120)),
-      null, new Point(x, 200), 10, 10);
+    dc.Ellipse(Color.FromArgb(255, 120, 120, 120), x, 200, 10, 10);
   }
 }";
 
