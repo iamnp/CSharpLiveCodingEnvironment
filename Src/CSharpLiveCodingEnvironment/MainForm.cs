@@ -466,7 +466,7 @@ namespace CSharpLiveCodingEnvironment
             var results = new CSharpCodeProvider().CompileAssemblyFromSource(compilerParameters,
                 CodeSnippets.GetStandaloneExecutableCode(SettingsForm.Instance.DesiredDt,
                     SettingsForm.Instance.WaitAfterEachTick, SettingsForm.Instance.WaitAfterEachTickMsec),
-                $"{string.Join("\n", _codeCompiler.Header)}\n{codeEditor.Text}\n{string.Join("\n", _codeCompiler.Footer)}");
+                $"{string.Join("\n", _codeCompiler.Header)}\n{codeEditor.Text}\n{string.Join("\n", _codeCompiler.Footer)}\n{string.Join("\n", _codeCompiler.WpfWrapper)}");
             if (results.Errors.Count > 0)
             {
                 MessageBox.Show("Произошла ошибка при сохранении файла!");

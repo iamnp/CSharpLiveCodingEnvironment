@@ -110,7 +110,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
                 var name = assembly.GetName().Name;
                 if (name == "PresentationFramework"
                     || name == "WindowsBase"
-                    || name == "PresentationCore")
+                    || name == "PresentationCore"
+                    || name == "System"
+                    || name == "System.Xaml")
                 {
                     _compilerParameters.ReferencedAssemblies.Add(assembly.Location);
                 }
