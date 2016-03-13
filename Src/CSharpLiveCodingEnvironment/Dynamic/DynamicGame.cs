@@ -153,7 +153,16 @@ namespace CSharpLiveCodingEnvironment.Dynamic
                 for (var i = 0; i < fields.Length; ++i)
                 {
                     var val = CompiledData.Fields[i].GetValue(CompiledData.Instance);
-                    fields[i] = new Tuple<string, string>(CompiledData.Fields[i].Name, val?.ToString() ?? "null");
+                    string str;
+                    try
+                    {
+                        str = val.ToString();
+                    }
+                    catch
+                    {
+                        str = val == null ? "null" : "";
+                    }
+                    fields[i] = new Tuple<string, string>(CompiledData.Fields[i].Name, str);
                 }
                 handler.Invoke(this, new FieldsChangedEventArgs(fields));
                 return true;
