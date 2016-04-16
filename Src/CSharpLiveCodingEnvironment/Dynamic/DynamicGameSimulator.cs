@@ -4,11 +4,17 @@ using System.Windows.Media.Imaging;
 
 namespace CSharpLiveCodingEnvironment.Dynamic
 {
+    /// <summary>
+    ///     Class that simulates game.
+    /// </summary>
     internal class DynamicGameSimulator
     {
         private readonly DynamicGame _game;
         public List<Snapshot> Snapshots = new List<Snapshot>();
 
+        /// <summary>
+        ///     Initializes a new instance of the DynamicGameSimulator class.
+        /// </summary>
         public DynamicGameSimulator(DynamicGame game)
         {
             _game = game;
@@ -16,6 +22,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
 
         public BitmapSource TimelapseScene { get; private set; }
 
+        /// <summary>
+        ///     Takes snapshot of current game state.
+        /// </summary>
         public void TakeSnapshot(Dictionary<char, bool> input, double dt, int limit)
         {
             if (_game.CompiledData == null) return;
@@ -23,6 +32,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             Snapshots.Add(new Snapshot {Input = input, State = _game.CompiledData.DumpGameState(), Dt = dt});
         }
 
+        /// <summary>
+        ///     Adds dummy (same) snapshots.
+        /// </summary>
         public void AddDummySnapshots(int count)
         {
             var lastSnapshot = Snapshots.Count - 1;
@@ -37,11 +49,18 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
+        /// <summary>
+        ///     Removes snapshots from end.
+        /// </summary>
+        /// <param name="count"></param>
         public void RemoveSnapshotsFromEnd(int count)
         {
             Snapshots.RemoveRange(Snapshots.Count - count, count);
         }
 
+        /// <summary>
+        ///     Renders timelapse scene.
+        /// </summary>
         public void RenderTimelapseScene()
         {
             var state = _game.CompiledData.DumpGameState();
@@ -64,6 +83,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             _game.CompiledData.SetGameState(state);
         }
 
+        /// <summary>
+        ///     Simulates game starting from nth screenshot. 
+        /// </summary>
         public void SimulateGame(int startSnapshot)
         {
             var state = Snapshots[startSnapshot].State;

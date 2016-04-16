@@ -4,6 +4,9 @@ using System.Windows.Media;
 
 namespace CSharpLiveCodingEnvironment.Dynamic
 {
+    /// <summary>
+    ///     Graphics control class.
+    /// </summary>
     internal class GraphicsControl : Control
     {
         public Action<DrawingContext> DrawingFunc;

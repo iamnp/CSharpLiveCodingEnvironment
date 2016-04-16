@@ -13,6 +13,9 @@ using CSharpLiveCodingEnvironment.CodeCompilation;
 
 namespace CSharpLiveCodingEnvironment.Dynamic
 {
+    /// <summary>
+    ///     Dynamic game class. 
+    /// </summary>
     internal class DynamicGame
     {
         private readonly DynamicGameSimulator _dynamicGameSimulator;
@@ -32,6 +35,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         private Task _sceneLoopTask;
         public int CurrentTrackBarValue;
 
+        /// <summary>
+        ///     Initializes a new instance of the DynamicGame class.
+        /// </summary>
         public DynamicGame(GraphicsControl g, ToolStripStatusLabel logLabel)
         {
             g.DrawingFunc = DrawScene;
@@ -53,6 +59,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         public event EventHandler CurrentTrackBarValueChanged;
         public event EventHandler PausedChanged;
 
+        /// <summary>
+        ///     Replaces CompiledData instance.
+        /// </summary>
         public void ReplaceCompiledData(CompiledData cd)
         {
             lock (_locker)
@@ -61,11 +70,17 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
+        /// <summary>
+        ///     Checks if Tick method exists in current CompiledData instance.
+        /// </summary>
         public bool TickDelegateExists()
         {
             return CompiledData?.TickDelegate != null;
         }
 
+        /// <summary>
+        ///     Draws tick frame.
+        /// </summary>
         private void DrawScene(DrawingContext dc)
         {
             dc.DrawRectangle(Brushes.White, null,
@@ -81,6 +96,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
+        /// <summary>
+        ///     Processes game tick.
+        /// </summary>
         private void MoveScene(double dt, Dictionary<char, bool> input, int frame)
         {
             if (Paused)
@@ -93,6 +111,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
+        /// <summary>
+        ///     Starts game.
+        /// </summary>
         public void Start()
         {
             _sceneLoopTask?.Dispose();
@@ -100,6 +121,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             _sceneLoopTask.Start();
         }
 
+        /// <summary>
+        ///     Stops game.
+        /// </summary>
         public void Stop()
         {
             _evExit.Set();
@@ -109,6 +133,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             //_evExit.Close();
         }
 
+        /// <summary>
+        ///     Puases game.
+        /// </summary>
         public void Puase()
         {
             lock (_locker)
@@ -119,14 +146,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
-        public void SetNeedToSimulateTimelapseScene()
-        {
-            lock (_locker)
-            {
-                _needToSimulateTimelapseScene = true;
-            }
-        }
-
+        /// <summary>
+        ///     Resumes game.
+        /// </summary>
         public void Resume()
         {
             lock (_locker)
@@ -135,6 +157,20 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
+        /// <summary>
+        ///     Value indicating the need to simulate timelapse scene on the next tick.
+        /// </summary>
+        public void SetNeedToSimulateTimelapseScene()
+        {
+            lock (_locker)
+            {
+                _needToSimulateTimelapseScene = true;
+            }
+        }
+
+        /// <summary>
+        ///     Sets input key.
+        /// </summary>
         public void SetInput(char key, bool v)
         {
             lock (_locker)
@@ -143,6 +179,10 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
+        /// <summary>
+        ///     Fires FieldsChanged event.
+        /// </summary>
+        /// <returns>True, if an event was fired, false otherwise.</returns>
         private bool FireFieldsChangedEvent()
         {
             if (CompiledData == null) return false;
@@ -170,6 +210,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             return false;
         }
 
+        /// <summary>
+        ///     Game tick method.
+        /// </summary>
         private void GameTick()
         {
             var dtStopwatch = new Stopwatch();
@@ -332,6 +375,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             }
         }
 
+        /// <summary>
+        ///     Returns current frame PNG bytes.
+        /// </summary>
         public byte[] GetCurrentFramePngBytes()
         {
             var rtb = new RenderTargetBitmap((int) GraphicsControl.ActualWidth, (int) GraphicsControl.ActualHeight,
@@ -354,6 +400,9 @@ namespace CSharpLiveCodingEnvironment.Dynamic
             return ms.ToArray();
         }
 
+        /// <summary>
+        ///     Returns frames buffer GIF bytes.
+        /// </summary>
         public byte[] GetStoredFramesGifBytes()
         {
             var gifEncoder = new GifBitmapEncoder();
