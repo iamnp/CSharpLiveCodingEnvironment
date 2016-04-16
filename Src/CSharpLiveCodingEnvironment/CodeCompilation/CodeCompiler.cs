@@ -9,6 +9,9 @@ using Microsoft.CSharp;
 
 namespace CSharpLiveCodingEnvironment.CodeCompilation
 {
+    /// <summary>
+    ///     Code compiler class.
+    /// </summary>
     internal class CodeCompiler
     {
         private readonly CSharpCodeProvider _compiler = new CSharpCodeProvider();
@@ -19,6 +22,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
         private string _pendingCode;
         private bool _saveState;
 
+        /// <summary>
+        ///     Source code that is added to the bottom of user's source code.
+        /// </summary>
         public string[] Footer =
         {
             "[AttributeUsage(AttributeTargets.Field)]",
@@ -35,6 +41,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             "public class MainClass : Attribute {}"
         };
 
+        /// <summary>
+        ///     Source code that is added to the top of user's source code.
+        /// </summary>
         public string[] Header =
         {
             "using System.Windows.Media;",
@@ -44,6 +53,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             "using System;"
         };
 
+        /// <summary>
+        ///     WPF Wrapper source code.
+        /// </summary>
         public string[] WpfWrapper =
         {
             "static class __WPFWrapper",
@@ -94,6 +106,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             "}"
         };
 
+        /// <summary>
+        ///     Initializes a new instance of the CodeCompiler class.
+        /// </summary>
         public CodeCompiler(SynchronizationContext synchronizationContext)
         {
             _synchronizationContext = synchronizationContext;
@@ -122,12 +137,15 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
         public event CompiledHandler Compiled;
         public event CompilationErrorHandler CompilationError;
 
+        /// <summary>
+        ///     Asynchronously compiles game class code.
+        /// </summary>
         public void CompileGameClass(string code, bool saveState)
         {
             lock (_locker)
             {
                 if (_compilingTask == null)
-                    _compilingTask = Task.Factory.StartNew(() => Compile(code, saveState));
+                    _compilingTask = Task.Factory.StartNew(() => CompileInternal(code, saveState));
                 else
                 {
                     _pendingCode = code;
@@ -136,7 +154,10 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             }
         }
 
-        private void Compile(string code, bool saveState)
+        /// <summary>
+        ///     Compiles game class code.
+        /// </summary>
+        private void CompileInternal(string code, bool saveState)
         {
             var linesOffset = Header.Length;
 
@@ -233,30 +254,42 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
                 if (_pendingCode != null)
                 {
                     var tmp = string.Copy(_pendingCode);
-                    _compilingTask = Task.Factory.StartNew(() => Compile(tmp, _saveState));
+                    _compilingTask = Task.Factory.StartNew(() => CompileInternal(tmp, _saveState));
                     _pendingCode = null;
                 }
             }
         }
 
+        /// <summary>
+        ///     Checks if method can be used as Init method.
+        /// </summary>
         private bool IsInitMethodSignature(MethodInfo m)
         {
             var p = m.GetParameters();
             return m.ReturnType == typeof (void) && p.Length == 0;
         }
 
+        /// <summary>
+        ///     Checks if method can be used as Draw method.
+        /// </summary>
         private bool IsDrawMethodSignature(MethodInfo m)
         {
             var p = m.GetParameters();
             return m.ReturnType == typeof (void) && p.Length == 1 && p[0].ParameterType == typeof (DrawingContext);
         }
 
+        /// <summary>
+        ///     Checks if method can be used as DrawTrack method.
+        /// </summary>
         private bool IsDrawTrackMethodSignature(MethodInfo m)
         {
             var p = m.GetParameters();
             return m.ReturnType == typeof (void) && p.Length == 1 && p[0].ParameterType == typeof (DrawingContext);
         }
 
+        /// <summary>
+        ///     Checks if method can be used as Tick method.
+        /// </summary>
         private bool IsTickMethodSignature(MethodInfo m)
         {
             var p = m.GetParameters();

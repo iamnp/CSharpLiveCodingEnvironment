@@ -6,6 +6,9 @@ using System.Windows.Media;
 
 namespace CSharpLiveCodingEnvironment.CodeCompilation
 {
+    /// <summary>
+    ///     Class that holds compiled class data.
+    /// </summary>
     internal class CompiledData
     {
         public Action<DrawingContext> DrawDelegate;
@@ -17,6 +20,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
         public bool NeedToSaveState;
         public Action<double, Dictionary<char, bool>> TickDelegate;
 
+        /// <summary>
+        ///     Tries to invoke Tick delegate.
+        /// </summary>
         public void TryInvokeTickDelegate(double dt, Dictionary<char, bool> input)
         {
             if (TickDelegate == null) return;
@@ -29,6 +35,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             }
         }
 
+        /// <summary>
+        ///     Tries to invoke Draw delegate.
+        /// </summary>
         public void TryInvokeDrawDelegate(DrawingContext dc)
         {
             if (DrawDelegate == null) return;
@@ -41,6 +50,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             }
         }
 
+        /// <summary>
+        ///     Tries to invoke Init delegate.
+        /// </summary>
         public void TryInvokeInitDelegate()
         {
             if (InitDelegate == null) return;
@@ -53,6 +65,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             }
         }
 
+        /// <summary>
+        ///     Tries to invoke DrawTrack delegates.
+        /// </summary>
         public void TryInvokeDrawTrackDelegates(DrawingContext dc)
         {
             for (var i = 0; i < DrawTrackDelegates.Count; ++i)
@@ -67,6 +82,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             }
         }
 
+        /// <summary>
+        ///     Sets new game state.
+        /// </summary>
         public void SetGameState(Dictionary<string, object> state)
         {
             for (var index = 0; index < Fields.Length; index++)
@@ -79,6 +97,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             }
         }
 
+        /// <summary>
+        ///     Dumps current game state.
+        /// </summary>
         public Dictionary<string, object> DumpGameState()
         {
             var d = new Dictionary<string, object>();
@@ -96,6 +117,9 @@ namespace CSharpLiveCodingEnvironment.CodeCompilation
             return d;
         }
 
+        /// <summary>
+        ///     Checks for infinite loops.
+        /// </summary>
         public bool CheckWhileTrue(double dt, Dictionary<char, bool> input)
         {
             var res = true;
