@@ -2,6 +2,9 @@
 
 namespace CSharpLiveCodingEnvironment.CodeEditing
 {
+    /// <summary>
+    ///     Holds info about line marker.
+    /// </summary>
     internal class LineMarker
     {
         public Color Color;

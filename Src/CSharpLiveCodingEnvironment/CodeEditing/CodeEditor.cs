@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace CSharpLiveCodingEnvironment.CodeEditing
 {
+    /// <summary>
+    ///     Source code editor control class.
+    /// </summary>
     internal partial class CodeEditor : UserControl
     {
         private const int DockWidth = 20;
@@ -76,10 +79,14 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
         private int _showingToolTipLine = -1;
         private string _text;
 
+        /// <summary>
+        ///     Initializes a new instance of the CodeEditor class.
+        /// </summary>
         public CodeEditor()
         {
             InitializeComponent();
 
+            // improves performance
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
@@ -160,6 +167,9 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             ScrollToCaret();
         }
 
+        /// <summary>
+        ///     Processes input from keyboard as a char.
+        /// </summary>
         protected override bool ProcessMnemonic(char c)
         {
             if (!Focused) return false;
@@ -186,12 +196,16 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
 
         protected override bool ProcessKeyMessage(ref Message m)
         {
+            // calls ProcessMnemonic if char is input
             if (m.Msg == WinApi.WM_CHAR)
                 ProcessMnemonic(Convert.ToChar(m.WParam.ToInt32()));
 
             return base.ProcessKeyMessage(ref m);
         }
 
+        /// <summary>
+        ///     Checks if a key should be considered as an input key.
+        /// </summary>
         protected override bool IsInputKey(Keys key)
         {
             if ((key & Keys.Alt) != Keys.Alt && ((key & Keys.KeyCode) == Keys.Right))
@@ -360,6 +374,9 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
             }
         }
 
+        /// <summary>
+        ///     Smoothly refreshes control. 
+        /// </summary>
         private void SmoothRefresh()
         {
             Invalidate();

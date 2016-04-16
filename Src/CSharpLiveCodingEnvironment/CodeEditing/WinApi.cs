@@ -5,6 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace CSharpLiveCodingEnvironment.CodeEditing
 {
+    /// <summary>
+    ///     WINAPI wrapper class with P/Invoke native functions.
+    /// </summary>
     internal static class WinApi
     {
         public const int WM_CHAR = 0x102;

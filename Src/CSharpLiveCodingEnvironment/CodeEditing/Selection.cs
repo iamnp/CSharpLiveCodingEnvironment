@@ -1,5 +1,8 @@
 ﻿namespace CSharpLiveCodingEnvironment.CodeEditing
 {
+    /// <summary>
+    ///     Holds info about text selection.
+    /// </summary>
     internal class Selection
     {
         public Position End = new Position();
@@ -7,6 +10,9 @@
 
         public bool IsEmpty => Start.Column == End.Column && Start.Line == End.Line;
 
+        /// <summary>
+        ///     Returns a sorted copy of current Selection instance.
+        /// </summary>
         public Selection Sorted()
         {
             var sel = new Selection {Start = Start, End = End};
