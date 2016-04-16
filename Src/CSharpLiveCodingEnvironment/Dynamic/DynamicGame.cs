@@ -14,7 +14,7 @@ using CSharpLiveCodingEnvironment.CodeCompilation;
 namespace CSharpLiveCodingEnvironment.Dynamic
 {
     /// <summary>
-    ///     Dynamic game class. 
+    ///     Dynamic game class.
     /// </summary>
     internal class DynamicGame
     {

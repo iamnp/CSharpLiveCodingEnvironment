@@ -1,5 +1,8 @@
 ﻿namespace CSharpLiveCodingEnvironment
 {
+    /// <summary>
+    ///     Class that contains code snippets.
+    /// </summary>
     internal static class CodeSnippets
     {
         private const string DarkColor = @"Colors.Gray";

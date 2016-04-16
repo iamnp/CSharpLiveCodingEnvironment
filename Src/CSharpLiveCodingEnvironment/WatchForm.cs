@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace CSharpLiveCodingEnvironment
 {
+    /// <summary>
+    ///     Form that shows field's values.
+    /// </summary>
     internal partial class WatchForm : Form
     {
         private static WatchForm _instance;

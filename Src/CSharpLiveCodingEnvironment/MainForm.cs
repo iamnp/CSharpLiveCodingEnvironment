@@ -16,6 +16,9 @@ using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace CSharpLiveCodingEnvironment
 {
+    /// <summary>
+    ///     Main form class.
+    /// </summary>
     internal partial class MainForm : Form
     {
         private readonly CodeCompiler _codeCompiler;
@@ -191,11 +194,6 @@ namespace CSharpLiveCodingEnvironment
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _codeCompiler.CompileGameClass(codeEditor.Text, false);
-        }
-
-        private void watchListToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

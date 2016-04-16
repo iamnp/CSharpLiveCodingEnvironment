@@ -244,7 +244,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 174);
+            this.ClientSize = new System.Drawing.Size(276, 179);
             this.Controls.Add(this.InfiniteLoopsLabel);
             this.Controls.Add(this.InfiniteLoopsNumericUpDown);
             this.Controls.Add(this.topMostCheckBox);
@@ -264,7 +264,7 @@
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Настройки";
+            this.Text = "Параметры";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.storeLastFramesNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.desiredFramerateNumericUpDown)).EndInit();

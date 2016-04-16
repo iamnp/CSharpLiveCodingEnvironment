@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace CSharpLiveCodingEnvironment
 {
+    /// <summary>
+    ///     Form that contains application settings.
+    /// </summary>
     internal partial class SettingsForm : Form
     {
         private static SettingsForm _instance;

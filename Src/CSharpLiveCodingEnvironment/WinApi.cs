@@ -2,6 +2,9 @@
 
 namespace CSharpLiveCodingEnvironment
 {
+    /// <summary>
+    ///     WINAPI wrapper class with P/Invoke native functions.
+    /// </summary>
     internal static class WinApi
     {
         [DllImport("winmm.dll", EntryPoint = "timeBeginPeriod", SetLastError = true)]

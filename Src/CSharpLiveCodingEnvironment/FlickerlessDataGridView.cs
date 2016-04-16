@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace CSharpLiveCodingEnvironment
 {
+    /// <summary>
+    ///     DataGridView for fast data updating.
+    /// </summary>
     internal class FlickerlessDataGridView : DataGridView
     {
         private readonly DataTable _dt = new DataTable();
@@ -18,6 +21,7 @@ namespace CSharpLiveCodingEnvironment
 
             DataSource = _dt;
 
+            // needed to get rid of flickerness
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);

@@ -84,7 +84,7 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         }
 
         /// <summary>
-        ///     Simulates game starting from nth screenshot. 
+        ///     Simulates game starting from nth screenshot.
         /// </summary>
         public void SimulateGame(int startSnapshot)
         {
