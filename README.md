@@ -6,8 +6,8 @@ The idea of the project is based on Bret Victor's talk 'Inventing on Principle' 
 
 TODOs
 ----
- - Fix "Info" menu item
  - Add xml comments
+ - (?) Remove Init() method, remove wait for infinite loops 
 
 License
 ----

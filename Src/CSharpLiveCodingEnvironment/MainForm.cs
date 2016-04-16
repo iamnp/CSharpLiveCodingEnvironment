@@ -183,18 +183,6 @@ namespace CSharpLiveCodingEnvironment
             _dynamicGame.CurrentTrackBarValue = trackBar1.Value;
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (SettingsForm.Instance.Visible)
-            {
-                SettingsForm.Instance.Focus();
-            }
-            else
-            {
-                SettingsForm.Instance.Show();
-            }
-        }
-
         private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TogglePause();
@@ -207,14 +195,7 @@ namespace CSharpLiveCodingEnvironment
 
         private void watchListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (WatchForm.Instance.Visible)
-            {
-                WatchForm.Instance.Focus();
-            }
-            else
-            {
-                WatchForm.Instance.Show();
-            }
+
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -470,6 +451,30 @@ namespace CSharpLiveCodingEnvironment
             if (results.Errors.Count > 0)
             {
                 MessageBox.Show("Произошла ошибка при сохранении файла!");
+            }
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (SettingsForm.Instance.Visible)
+            {
+                SettingsForm.Instance.Focus();
+            }
+            else
+            {
+                SettingsForm.Instance.Show();
+            }
+        }
+
+        private void watchListToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (WatchForm.Instance.Visible)
+            {
+                WatchForm.Instance.Focus();
+            }
+            else
+            {
+                WatchForm.Instance.Show();
             }
         }
     }
