@@ -6,8 +6,7 @@ The idea of the project is based on Bret Victor's talk 'Inventing on Principle' 
 
 TODOs
 ----
- - Add xml comments
- - (?) Remove Init() method, remove wait for infinite loops 
+ - Remove Init() method, remove wait for infinite loops
 
 License
 ----
