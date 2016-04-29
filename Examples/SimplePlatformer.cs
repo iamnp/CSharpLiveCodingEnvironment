@@ -17,17 +17,21 @@ class Game
     ballY = -50.0;
 
     blocks = new int[blockCount, blockCount];
-    for (int i = 0; i < 21; ++i) {
+    for (int i = 0; i < 12; ++i) {
       blocks[i, 18] = 1;
     }
-    for (int i = 15; i < 21; ++i) {
+    for (int i = 18; i < 21; ++i) {
+      blocks[i, 18] = 1;
+    }
+    blocks[11, 18] = 2;
+    for (int i = 18; i < 21; ++i) {
       blocks[i, 13] = 1;
     }
-    for (int i = 15; i < 21; ++i) {
+    for (int i = 18; i < 21; ++i) {
       blocks[i, 10] = 1;
     }
     for (int i = 13; i < 18; ++i) {
-      blocks[15, i] = 1;
+      blocks[18, i] = 1;
     }
   }
 
@@ -74,7 +78,8 @@ class Game
         if (c == 3 && (j - 1 < 0 || blocks[i, j-1] == 0)) {
           ballY = b.Y - ballSize;
           ballSpdY = 0;
-          if (input['W']) { ballSpdY = -1.2; }
+          if (input['W']) ballSpdY = -1.2;
+          if (blocks[i,j] == 2) ballSpdY = -1.2;
         }
         if (c == 4 && (j + 1 > blockCount - 1 || blocks[i, j+1] == 0)) {
           ballY = b.Y + b.Height + 1 + ballSize;
@@ -115,6 +120,8 @@ class Game
       for (int j = 0; j < blockCount; ++j) {
         if (blocks[i, j] == 1)
           dc.Rect(Colors.Green, i * blockSize, j * blockSize, blockSize, blockSize);
+        if (blocks[i, j] == 2)
+          dc.Rect(Colors.Blue, i * blockSize, j * blockSize, blockSize, blockSize);
       }
     }
   }
