@@ -373,6 +373,7 @@ namespace CSharpLiveCodingEnvironment
                     {
                         var pngBytes = _dynamicGame.GetCurrentFramePngBytes();
                         File.WriteAllBytes(dialog.FileName, pngBytes);
+                        MessageBox.Show("Файл сохранен!");
                     }
                     catch
                     {
@@ -382,6 +383,12 @@ namespace CSharpLiveCodingEnvironment
             }
         }
 
+        private void SetNativeEnabled(bool enabled)
+        {
+            WinApi.SetWindowLong(Handle, WinApi.GWL_STYLE, WinApi.GetWindowLong(Handle, WinApi.GWL_STYLE) &
+                                                           ~WinApi.WS_DISABLED | (enabled ? 0 : WinApi.WS_DISABLED));
+        }
+
         private void exportGifToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog {Filter = @"GIF files (*.gif)|*.gif"})
@@ -389,16 +396,32 @@ namespace CSharpLiveCodingEnvironment
                 if (dialog.ShowDialog(this) == DialogResult.OK)
                 {
                     var path = dialog.FileName;
+                    var f = new LoaderForm();
+                    f.Show(this);
+                    SetNativeEnabled(false);
                     Task.Factory.StartNew(() =>
                     {
                         try
                         {
                             var gifBytes = _dynamicGame.GetStoredFramesGifBytes();
                             File.WriteAllBytes(path, gifBytes);
+                            Invoke((MethodInvoker) (() =>
+                            {
+                                f.Close();
+                                f.Dispose();
+                                SetNativeEnabled(true);
+                                MessageBox.Show("Файл сохранен");
+                            }));
                         }
                         catch
                         {
-                            Invoke((MethodInvoker) (() => MessageBox.Show("Произошла ошибка при сохранении файла!")));
+                            Invoke((MethodInvoker) (() =>
+                            {
+                                f.Close();
+                                f.Dispose();
+                                SetNativeEnabled(true);
+                                MessageBox.Show("Произошла ошибка при сохранении файла!");
+                            }));
                         }
                     });
                 }
@@ -449,6 +472,10 @@ namespace CSharpLiveCodingEnvironment
             if (results.Errors.Count > 0)
             {
                 MessageBox.Show("Произошла ошибка при сохранении файла!");
+            }
+            else
+            {
+                MessageBox.Show("Файл сохранен");
             }
         }
 

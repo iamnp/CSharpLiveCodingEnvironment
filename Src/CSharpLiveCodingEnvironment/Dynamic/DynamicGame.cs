@@ -407,21 +407,24 @@ namespace CSharpLiveCodingEnvironment.Dynamic
         {
             var gifEncoder = new GifBitmapEncoder();
 
-            var state = CompiledData.DumpGameState();
-            for (var i = 0; i < _dynamicGameSimulator.Snapshots.Count; ++i)
+            lock (_locker)
             {
-                var rtb = new RenderTargetBitmap((int) GraphicsControl.ActualWidth,
-                    (int) GraphicsControl.ActualHeight, 96, 96, PixelFormats.Default);
-                var dv = new DrawingVisual();
-                CompiledData.SetGameState(_dynamicGameSimulator.Snapshots[i].State);
-                using (var dc = dv.RenderOpen())
+                var state = CompiledData.DumpGameState();
+                for (var i = 0; i < _dynamicGameSimulator.Snapshots.Count; ++i)
                 {
-                    CompiledData.TryInvokeDrawDelegate(dc);
+                    var rtb = new RenderTargetBitmap((int) GraphicsControl.ActualWidth,
+                        (int) GraphicsControl.ActualHeight, 96, 96, PixelFormats.Default);
+                    var dv = new DrawingVisual();
+                    CompiledData.SetGameState(_dynamicGameSimulator.Snapshots[i].State);
+                    using (var dc = dv.RenderOpen())
+                    {
+                        CompiledData.TryInvokeDrawDelegate(dc);
+                    }
+                    rtb.Render(dv);
+                    gifEncoder.Frames.Add(BitmapFrame.Create(rtb));
                 }
-                rtb.Render(dv);
-                gifEncoder.Frames.Add(BitmapFrame.Create(rtb));
+                CompiledData.SetGameState(state);
             }
-            CompiledData.SetGameState(state);
 
             byte[] data;
             using (var stream = new MemoryStream())
