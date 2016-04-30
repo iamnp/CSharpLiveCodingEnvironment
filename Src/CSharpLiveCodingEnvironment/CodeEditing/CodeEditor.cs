@@ -497,11 +497,12 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 if (_markers[i].Line >= firstLine && _markers[i].Line <= lastLine)
                 {
                     var markerX = 2 + MarkerSize/2;
-                    var markerY = (_markers[i].Line - 1 - firstLine)*_font.Height + MarkerSize/2;
+                    var markerY = shiftY%_font.Height + (_markers[i].Line - 1 - firstLine)*_font.Height + _font.Height/2;
+
                     var dx = markerX - x;
                     var dy = markerY - y;
 
-                    if (dx*dx + dy*dy <= MarkerSize*MarkerSize/2)
+                    if (dx*dx + dy*dy <= MarkerSize*MarkerSize/4)
                     {
                         if (_showingToolTipLine != _markers[i].Line)
                         {
