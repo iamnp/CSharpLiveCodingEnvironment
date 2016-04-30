@@ -933,8 +933,10 @@ namespace CSharpLiveCodingEnvironment.CodeEditing
                 if (_selection.End.Column == 0)
                 {
                     var len = _lines[_selection.End.Line - 1].Length;
+                    var shiftLine = _selection.End.Line != _lines.Length - 1;
+
                     Text = _text.Remove(pos - 2, 2);
-                    if (_selection.End.Line != _lines.Length - 1) _selection.End.Line -= 1;
+                    if (shiftLine) _selection.End.Line -= 1;
                     _selection.End.Column = len - 1;
                 }
                 else
