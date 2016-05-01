@@ -228,7 +228,7 @@ namespace CSharpLiveCodingEnvironment
             // 
             this.watchListToolStripMenuItem.Name = "watchListToolStripMenuItem";
             this.watchListToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.watchListToolStripMenuItem.Text = "Watch List";
+            this.watchListToolStripMenuItem.Text = "Объекты";
             this.watchListToolStripMenuItem.Click += new System.EventHandler(this.watchListToolStripMenuItem_Click_1);
             // 
             // actionsToolStripMenuItem
@@ -265,7 +265,7 @@ namespace CSharpLiveCodingEnvironment
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.aboutToolStripMenuItem.Text = "О программе";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 

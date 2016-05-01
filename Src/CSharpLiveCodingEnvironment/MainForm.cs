@@ -177,6 +177,14 @@ namespace CSharpLiveCodingEnvironment
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // remove logging strip if on release
+#if !DEBUG
+            statusStrip1.Visible = false;
+            codeEditor.Height += statusStrip1.Height;
+            MinimumSize = new Size(MinimumSize.Width, MinimumSize.Height - statusStrip1.Height);
+            Height -= statusStrip1.Height;
+#endif
+
             _dynamicGame.Start();
             _codeCompiler.CompileGameClass(codeEditor.Text, false);
         }

@@ -48,7 +48,7 @@ namespace CSharpLiveCodingEnvironment
         {
             ClearSelection();
             var saveRow = 0;
-            if (Rows.Count > 0) saveRow = FirstDisplayedCell.RowIndex;
+            if (Rows.Count > 0 && FirstDisplayedCell != null) saveRow = FirstDisplayedCell.RowIndex;
             _dt.Rows.Clear();
             for (var i = 0; i < list.Length; ++i)
             {

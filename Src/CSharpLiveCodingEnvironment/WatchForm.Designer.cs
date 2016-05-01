@@ -30,12 +30,23 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WatchForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.topMostCheckBox = new System.Windows.Forms.CheckBox();
             this._flickerlessDataGridView = new CSharpLiveCodingEnvironment.FlickerlessDataGridView();
             this.objectDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valueDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.topMostCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this._flickerlessDataGridView)).BeginInit();
             this.SuspendLayout();
+            // 
+            // topMostCheckBox
+            // 
+            this.topMostCheckBox.AutoSize = true;
+            this.topMostCheckBox.Location = new System.Drawing.Point(12, 12);
+            this.topMostCheckBox.Name = "topMostCheckBox";
+            this.topMostCheckBox.Size = new System.Drawing.Size(116, 17);
+            this.topMostCheckBox.TabIndex = 1;
+            this.topMostCheckBox.Text = "Поверх всех окон";
+            this.topMostCheckBox.UseVisualStyleBackColor = true;
+            this.topMostCheckBox.CheckedChanged += new System.EventHandler(this.topMostCheckBox_CheckedChanged);
             // 
             // _flickerlessDataGridView
             // 
@@ -69,25 +80,14 @@
             // objectDataGridViewTextBoxColumn
             // 
             this.objectDataGridViewTextBoxColumn.DataPropertyName = "Object";
-            this.objectDataGridViewTextBoxColumn.HeaderText = "Object";
+            this.objectDataGridViewTextBoxColumn.HeaderText = "Объект";
             this.objectDataGridViewTextBoxColumn.Name = "objectDataGridViewTextBoxColumn";
             // 
             // valueDataGridViewTextBoxColumn
             // 
             this.valueDataGridViewTextBoxColumn.DataPropertyName = "Value";
-            this.valueDataGridViewTextBoxColumn.HeaderText = "Value";
+            this.valueDataGridViewTextBoxColumn.HeaderText = "Значение";
             this.valueDataGridViewTextBoxColumn.Name = "valueDataGridViewTextBoxColumn";
-            // 
-            // topMostCheckBox
-            // 
-            this.topMostCheckBox.AutoSize = true;
-            this.topMostCheckBox.Location = new System.Drawing.Point(12, 12);
-            this.topMostCheckBox.Name = "topMostCheckBox";
-            this.topMostCheckBox.Size = new System.Drawing.Size(116, 17);
-            this.topMostCheckBox.TabIndex = 1;
-            this.topMostCheckBox.Text = "Поверх всех окон";
-            this.topMostCheckBox.UseVisualStyleBackColor = true;
-            this.topMostCheckBox.CheckedChanged += new System.EventHandler(this.topMostCheckBox_CheckedChanged);
             // 
             // WatchForm
             // 
@@ -97,6 +97,7 @@
             this.Controls.Add(this.topMostCheckBox);
             this.Controls.Add(this._flickerlessDataGridView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "WatchForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Объекты";
