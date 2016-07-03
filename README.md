@@ -4,6 +4,10 @@ C# Live Coding Environment is a C# code editor that compiles and runs your code 
 
 The idea of the project is based on Bret Victor's talk 'Inventing on Principle' given at CUSEC, 2012.
 
+<img src="Docs/screenshot1.png" width="800">
+</br>
+<img src="Docs/screenshot2.png" width="800">
+
 TODOs
 ----
  - Remove Init() method, remove wait for infinite loops
